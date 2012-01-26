@@ -1,0 +1,44 @@
+
+<!--
+  ~ Copyright (C) 2012  Addition, Lda. (addition at addition dot pt)
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see http://www.gnu.org/licenses/.
+  -->
+
+<html>
+<body>
+Epanet water quality(single species) simulation.
+<br>
+<b>Water quality simulation example</b><br>
+Logger log = ...<br>
+Network net = ...<br>
+QualitySim qSim = new QualitySim(net,log);<br>
+qSim.simulate(new File("hydraulicSimFile.bin"),new File("qualitySimFile.bin"));<br>
+<br>
+<b>Water quality result reader</b><br>
+Network net = ...<br>
+QualityReader qReader = new QualityReader(net.getFieldsMap()); <br>
+qReader.open(new File("qualitySimFile.bin")); <br>
+<br>
+long time = net.getPropertiesMap().getRstart();<br>
+for(QualityReader qStep : qReader){<br>
+    System.print(String.format("Instant %s , nodes quality : ",Utilities.getClockTime(time)));<br>
+    for(int i = 0;i &lt; net.getJunctions().size();i++)<br>
+        System.out.print(String.format("%f\t",qStep.getNodeQuality(i)));<br>
+    System.out.println("");<br>
+    time+=net.getPropertiesMap().getRstep();<br>
+}<br>
+
+</body>
+</html>

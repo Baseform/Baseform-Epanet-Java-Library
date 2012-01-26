@@ -1,0 +1,715 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="org.addition.epanet.ui.EpanetUI">
+  <grid id="27dc6" binding="root" custom-create="true" layout-manager="GridLayoutManager" row-count="2" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="1112" height="673"/>
+    </constraints>
+    <properties>
+      <background color="-4473925"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="488c9" binding="right" custom-create="true" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="10" left="10" bottom="10" right="10"/>
+        <constraints>
+          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1118482"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="c96ee" binding="network" custom-create="true" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="true">
+                <minimum-size width="500" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-1118482"/>
+            </properties>
+            <border type="none"/>
+            <children/>
+          </grid>
+          <grid id="15712" binding="checks" layout-manager="GridLayoutManager" row-count="1" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="5" vgap="0">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="10" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-1118482"/>
+              <enabled value="false"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="b0ef4" class="javax.swing.JCheckBox" binding="checkNodes">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-1118482"/>
+                  <focusPainted value="false"/>
+                  <foreground color="-10066330"/>
+                  <selected value="true"/>
+                  <text value="Draw Nodes"/>
+                </properties>
+              </component>
+              <component id="14bbb" class="javax.swing.JCheckBox" binding="checkTanks">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-1118482"/>
+                  <focusPainted value="false"/>
+                  <foreground color="-10066330"/>
+                  <selected value="true"/>
+                  <text value="Draw Tanks and Reservoirs"/>
+                </properties>
+              </component>
+              <component id="48c8d" class="javax.swing.JCheckBox" binding="checkPipes">
+                <constraints>
+                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-1118482"/>
+                  <focusPainted value="false"/>
+                  <foreground color="-10066330"/>
+                  <selected value="true"/>
+                  <text value="Draw Pipes"/>
+                </properties>
+              </component>
+              <hspacer id="221fe">
+                <constraints>
+                  <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
+            </children>
+          </grid>
+        </children>
+      </grid>
+      <grid id="bfbee" binding="left" layout-manager="GridLayoutManager" row-count="9" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="16" left="16" bottom="16" right="16"/>
+        <constraints>
+          <grid row="0" column="0" row-span="2" col-span="1" vsize-policy="2" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <minimum-size width="275" height="-1"/>
+            <preferred-size width="275" height="-1"/>
+            <maximum-size width="275" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <alignmentX value="0.0"/>
+          <alignmentY value="0.0"/>
+          <background color="-1973791"/>
+          <enabled value="false"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="a5996" binding="properties" custom-create="true" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="10" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <alignmentX value="0.0"/>
+              <alignmentY value="0.0"/>
+              <autoscrolls value="false"/>
+              <background color="-1973791"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="4166a" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="120" height="30"/>
+                    <preferred-size width="120" height="30"/>
+                    <maximum-size width="120" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <alignmentY value="0.0"/>
+                  <background color="-1973791"/>
+                  <font name="Lucida Sans" size="12"/>
+                  <foreground color="-10066330"/>
+                  <text value="INP file name"/>
+                  <verticalAlignment value="1"/>
+                  <verticalTextPosition value="1"/>
+                </properties>
+              </component>
+              <component id="c363" class="javax.swing.JLabel" binding="inpName">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="120" height="30"/>
+                    <preferred-size width="120" height="30"/>
+                    <maximum-size width="120" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font name="Lucida Sans" size="12"/>
+                  <foreground color="-10066330"/>
+                  <text value=""/>
+                  <verticalAlignment value="1"/>
+                  <verticalTextPosition value="1"/>
+                </properties>
+              </component>
+              <component id="63998" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="120" height="30"/>
+                    <preferred-size width="120" height="30"/>
+                    <maximum-size width="120" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font name="Lucida Sans" size="12"/>
+                  <foreground color="-10066330"/>
+                  <text value="MSX file name"/>
+                  <verticalAlignment value="1"/>
+                  <verticalTextPosition value="1"/>
+                </properties>
+              </component>
+              <component id="13c07" class="javax.swing.JLabel" binding="msxName">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="120" height="30"/>
+                    <preferred-size width="120" height="30"/>
+                    <maximum-size width="120" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font name="Lucida Sans" size="12"/>
+                  <foreground color="-10066330"/>
+                  <text value=""/>
+                  <verticalAlignment value="1"/>
+                  <verticalTextPosition value="1"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <component id="4eef9" class="javax.swing.JLabel" binding="hr1">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="240" height="20"/>
+                <preferred-size width="240" height="20"/>
+                <maximum-size width="240" height="20"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-1"/>
+              <horizontalAlignment value="2"/>
+              <horizontalTextPosition value="2"/>
+              <icon value="uiresources/hsep2.png"/>
+              <text value=""/>
+              <verticalAlignment value="0"/>
+              <verticalTextPosition value="0"/>
+            </properties>
+          </component>
+          <component id="74028" class="javax.swing.JButton" binding="logoB">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="9" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="241" height="-1"/>
+                <preferred-size width="241" height="-1"/>
+                <maximum-size width="241" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <alignmentY value="0.0"/>
+              <background color="-1973791"/>
+              <borderPainted value="false"/>
+              <focusPainted value="false"/>
+              <icon value="uiresources/logo2.png"/>
+              <text value=""/>
+              <verticalAlignment value="1"/>
+              <verticalTextPosition value="1"/>
+            </properties>
+          </component>
+          <vspacer id="c55c2">
+            <constraints>
+              <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <grid id="4871c" binding="top" custom-create="true" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="9" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="240" height="60"/>
+                <preferred-size width="240" height="60"/>
+                <maximum-size width="240" height="60"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-1973791"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="e05f3" class="javax.swing.JButton" binding="openINPButton" default-binding="true">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="9" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="110" height="-1"/>
+                    <preferred-size width="110" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <text value="Open"/>
+                  <verticalTextPosition value="0"/>
+                </properties>
+              </component>
+              <component id="2aa0e" class="javax.swing.JButton" binding="runSimulationButton" default-binding="true">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="5" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="110" height="-1"/>
+                    <preferred-size width="110" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <enabled value="false"/>
+                  <text value="Run Simulation"/>
+                </properties>
+              </component>
+              <component id="a48ce" class="javax.swing.JButton" binding="saveButton">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="10" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="110" height="-1"/>
+                    <preferred-size width="110" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <enabled value="false"/>
+                  <text value="Save"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="13237" binding="middle" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="10" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-1973791"/>
+              <enabled value="false"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="19532" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="120" height="30"/>
+                    <preferred-size width="120" height="30"/>
+                    <maximum-size width="120" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <alignmentY value="0.0"/>
+                  <font name="Lucida Sans" size="12"/>
+                  <foreground color="-10066330"/>
+                  <text value="Reservoirs"/>
+                  <verticalAlignment value="1"/>
+                  <verticalTextPosition value="1"/>
+                </properties>
+              </component>
+              <component id="a6572" class="javax.swing.JLabel" binding="textReservoirs">
+                <constraints>
+                  <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="120" height="30"/>
+                    <preferred-size width="120" height="30"/>
+                    <maximum-size width="120" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font name="Lucida Sans" size="12"/>
+                  <foreground color="-10066330"/>
+                  <text value=""/>
+                  <verticalAlignment value="1"/>
+                  <verticalTextPosition value="1"/>
+                </properties>
+              </component>
+              <component id="7c136" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="120" height="30"/>
+                    <preferred-size width="120" height="30"/>
+                    <maximum-size width="120" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font name="Lucida Sans" size="12"/>
+                  <foreground color="-10066330"/>
+                  <text value="Pipes"/>
+                  <verticalAlignment value="1"/>
+                  <verticalTextPosition value="1"/>
+                </properties>
+              </component>
+              <component id="df056" class="javax.swing.JLabel" binding="textPipes">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="120" height="30"/>
+                    <preferred-size width="120" height="30"/>
+                    <maximum-size width="120" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font name="Lucida Sans" size="12"/>
+                  <foreground color="-10066330"/>
+                  <text value=""/>
+                  <verticalAlignment value="1"/>
+                  <verticalTextPosition value="1"/>
+                </properties>
+              </component>
+              <component id="f72a0" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="120" height="30"/>
+                    <preferred-size width="120" height="30"/>
+                    <maximum-size width="120" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font name="Lucida Sans" size="12"/>
+                  <foreground color="-10066330"/>
+                  <text value="Nodes"/>
+                  <verticalAlignment value="1"/>
+                  <verticalTextPosition value="1"/>
+                </properties>
+              </component>
+              <component id="1dddd" class="javax.swing.JLabel" binding="textNodes">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="120" height="30"/>
+                    <preferred-size width="120" height="30"/>
+                    <maximum-size width="120" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font name="Lucida Sans" size="12"/>
+                  <foreground color="-10066330"/>
+                  <text value=""/>
+                  <verticalAlignment value="1"/>
+                  <verticalTextPosition value="1"/>
+                </properties>
+              </component>
+              <component id="34111" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="120" height="30"/>
+                    <preferred-size width="120" height="30"/>
+                    <maximum-size width="120" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font name="Lucida Sans" size="12"/>
+                  <foreground color="-10066330"/>
+                  <text value="Tanks"/>
+                  <verticalAlignment value="1"/>
+                  <verticalTextPosition value="1"/>
+                </properties>
+              </component>
+              <component id="96561" class="javax.swing.JLabel" binding="textTanks">
+                <constraints>
+                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="120" height="30"/>
+                    <preferred-size width="120" height="30"/>
+                    <maximum-size width="120" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font name="Lucida Sans" size="12"/>
+                  <foreground color="-10066330"/>
+                  <text value=""/>
+                  <verticalAlignment value="1"/>
+                  <verticalTextPosition value="1"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="d6b90" binding="bottom" layout-manager="GridLayoutManager" row-count="7" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="10" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-1973791"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="665cb" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="120" height="30"/>
+                    <preferred-size width="120" height="30"/>
+                    <maximum-size width="120" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font name="Lucida Sans" size="12"/>
+                  <foreground color="-10066330"/>
+                  <text value="Simulation Duration"/>
+                  <verticalAlignment value="1"/>
+                  <verticalTextPosition value="1"/>
+                </properties>
+              </component>
+              <component id="ee2a" class="javax.swing.JLabel" binding="textDuration">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="120" height="30"/>
+                    <preferred-size width="120" height="30"/>
+                    <maximum-size width="120" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font name="Lucida Sans" size="12"/>
+                  <foreground color="-10066330"/>
+                  <text value=""/>
+                  <verticalAlignment value="1"/>
+                  <verticalTextPosition value="1"/>
+                </properties>
+              </component>
+              <component id="8a784" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="120" height="30"/>
+                    <preferred-size width="120" height="30"/>
+                    <maximum-size width="120" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font name="Lucida Sans" size="12"/>
+                  <foreground color="-10066330"/>
+                  <text value="Units"/>
+                  <verticalAlignment value="1"/>
+                  <verticalTextPosition value="1"/>
+                </properties>
+              </component>
+              <component id="f40cd" class="javax.swing.JLabel" binding="textUnits">
+                <constraints>
+                  <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="120" height="30"/>
+                    <preferred-size width="120" height="30"/>
+                    <maximum-size width="120" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font name="Lucida Sans" size="12"/>
+                  <foreground color="-10066330"/>
+                  <text value=""/>
+                  <verticalAlignment value="1"/>
+                  <verticalTextPosition value="1"/>
+                </properties>
+              </component>
+              <component id="f862c" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="120" height="30"/>
+                    <preferred-size width="120" height="30"/>
+                    <maximum-size width="120" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font name="Lucida Sans" size="12"/>
+                  <foreground color="-10066330"/>
+                  <text value="Headloss Formula"/>
+                  <verticalAlignment value="1"/>
+                  <verticalTextPosition value="1"/>
+                </properties>
+              </component>
+              <component id="74176" class="javax.swing.JLabel" binding="textHeadloss">
+                <constraints>
+                  <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="120" height="30"/>
+                    <preferred-size width="120" height="30"/>
+                    <maximum-size width="120" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font name="Lucida Sans" size="12"/>
+                  <foreground color="-10066330"/>
+                  <text value=""/>
+                  <verticalAlignment value="1"/>
+                  <verticalTextPosition value="1"/>
+                </properties>
+              </component>
+              <component id="ed0c5" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="120" height="30"/>
+                    <preferred-size width="120" height="30"/>
+                    <maximum-size width="120" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font name="Lucida Sans" size="12"/>
+                  <foreground color="-10066330"/>
+                  <text value="Demand multiplier"/>
+                  <verticalAlignment value="1"/>
+                  <verticalTextPosition value="1"/>
+                </properties>
+              </component>
+              <component id="fc386" class="javax.swing.JLabel" binding="textDemand">
+                <constraints>
+                  <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="120" height="30"/>
+                    <preferred-size width="120" height="30"/>
+                    <maximum-size width="120" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font name="Lucida Sans" size="12"/>
+                  <foreground color="-10066330"/>
+                  <text value=""/>
+                  <verticalAlignment value="1"/>
+                  <verticalTextPosition value="1"/>
+                </properties>
+              </component>
+              <component id="3a183" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="120" height="30"/>
+                    <preferred-size width="120" height="30"/>
+                    <maximum-size width="120" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font name="Lucida Sans" size="12"/>
+                  <foreground color="-10066330"/>
+                  <text value="Quality"/>
+                  <verticalAlignment value="1"/>
+                  <verticalTextPosition value="1"/>
+                </properties>
+              </component>
+              <component id="94534" class="javax.swing.JLabel" binding="textQuality">
+                <constraints>
+                  <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="120" height="30"/>
+                    <preferred-size width="120" height="30"/>
+                    <maximum-size width="120" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font name="Lucida Sans" size="12"/>
+                  <foreground color="-10066330"/>
+                  <text value=""/>
+                  <verticalAlignment value="1"/>
+                  <verticalTextPosition value="1"/>
+                </properties>
+              </component>
+              <component id="c53fc" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="120" height="30"/>
+                    <preferred-size width="120" height="30"/>
+                    <maximum-size width="120" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font name="Lucida Sans" size="12"/>
+                  <foreground color="-10066330"/>
+                  <text value="Hydraulic timestep"/>
+                  <verticalAlignment value="1"/>
+                  <verticalTextPosition value="1"/>
+                </properties>
+              </component>
+              <component id="d054" class="javax.swing.JLabel" binding="textHydraulic">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="120" height="30"/>
+                    <preferred-size width="120" height="30"/>
+                    <maximum-size width="120" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font name="Lucida Sans" size="12"/>
+                  <foreground color="-10066330"/>
+                  <text value=""/>
+                  <verticalAlignment value="1"/>
+                  <verticalTextPosition value="1"/>
+                </properties>
+              </component>
+              <component id="e2024" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="120" height="30"/>
+                    <preferred-size width="120" height="30"/>
+                    <maximum-size width="120" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font name="Lucida Sans" size="12"/>
+                  <foreground color="-10066330"/>
+                  <text value="Pattern timestep"/>
+                  <verticalAlignment value="1"/>
+                  <verticalTextPosition value="1"/>
+                </properties>
+              </component>
+              <component id="a7d42" class="javax.swing.JLabel" binding="textPattern">
+                <constraints>
+                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="120" height="30"/>
+                    <preferred-size width="120" height="30"/>
+                    <maximum-size width="120" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font name="Lucida Sans" size="12"/>
+                  <foreground color="-10066330"/>
+                  <text value=""/>
+                  <verticalAlignment value="1"/>
+                  <verticalTextPosition value="1"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <component id="fe685" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="240" height="20"/>
+                <preferred-size width="240" height="20"/>
+                <maximum-size width="240" height="20"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-1"/>
+              <horizontalAlignment value="2"/>
+              <horizontalTextPosition value="2"/>
+              <icon value="uiresources/hsep.png"/>
+              <text value=""/>
+              <verticalAlignment value="0"/>
+              <verticalTextPosition value="0"/>
+            </properties>
+          </component>
+          <component id="b3da1" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="240" height="20"/>
+                <preferred-size width="240" height="20"/>
+                <maximum-size width="240" height="20"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-1"/>
+              <horizontalAlignment value="2"/>
+              <horizontalTextPosition value="2"/>
+              <icon value="uiresources/hsep.png"/>
+              <text value=""/>
+              <verticalAlignment value="0"/>
+              <verticalTextPosition value="0"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <component id="f5ae2" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="0" column="1" row-span="2" col-span="1" vsize-policy="6" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="1" height="-1"/>
+            <preferred-size width="1" height="-1"/>
+            <maximum-size width="1" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-13434625"/>
+          <text value=""/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>

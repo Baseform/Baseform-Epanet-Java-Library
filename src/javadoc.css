@@ -1,0 +1,576 @@
+/*
+ * Copyright (C) 2012  Addition, Lda. (addition at addition dot pt)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ */
+
+body {
+	margin: 0;
+	padding: 0;
+	font-size: 11pt;
+    font-family:"Helvetica Neue",Verdana,sans-serif;
+}
+
+a:link {
+	color: #003C96;
+	background-color: inherit;
+}
+
+a:visited {
+	color: #47a;
+	background-color: inherit;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+a:active {
+	
+}
+
+hr {
+	display: none;
+}
+
+h1 {
+	margin-top: 0;
+	font-size: 150%;
+}
+
+h1.centeredTitle {
+	font-size: 180%;
+	text-align: center;
+}
+
+#Navigation {
+	padding-bottom: 3px;
+	font-family: Arial;
+}
+
+#Navigation #JavadocSections {
+	list-style: none;
+	margin: 0;
+	padding: 2px;
+	padding-left: 0;
+	background-color: #A6C3AA;
+	border: 1px solid #808080;
+	margin-bottom: 2px;
+	overflow: hidden;
+}
+
+#Navigation #JavadocSections li {
+	display: inline;
+	margin: 0;
+	padding: 4px 3px;
+	font-size: 110%;
+	font-weight: bold;
+	color: #333;
+}
+
+#Navigation #JavadocSections li a {
+	color: black;
+}
+
+#Navigation #JavadocSections #current {
+	background-color: #C4E7CB;
+}
+
+#Navigation #PageRelativeLinks {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 85%;
+	margin: 0;
+}
+
+#Navigation #PageRelativeLinks td {
+	border: 1px solid black;
+	border: none;
+	vertical-align: top;
+}
+
+#Navigation #PageRelativeLinks td.labels {
+	width: 5em;
+	white-space: nowrap;
+}
+
+#Navigation #PageRelativeLinks ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#Navigation #PageRelativeLinks ul li {
+	display: inline;
+	border-right: 1px solid black;
+	padding: 0 5px;
+	margin: 0;
+}
+
+#Navigation #PageRelativeLinks ul li.last {
+	border: none;
+}
+
+#Navigation #PageRelativeLinks #WithinPage {
+	text-align: right;
+}
+
+#Summaries h2,#Details h2 {
+	padding: 0 3px;
+	border: 1px solid #777;
+	margin: 16px 0 6px;
+	font-size: 140%;
+}
+
+#Summaries h2 {
+	background-color: #7F9DCF;
+}
+
+#Details h2 {
+	background-color: #A7B4CC;
+}
+
+#Summaries h3 {
+	background-color: #eef;
+	margin: 12px 0 0;
+	padding: 0 3px;
+	border: 1px solid #777;
+	font-size: 110%;
+}
+
+#Details h3 {
+	background-color: #CCC498;
+	padding-left: 2px;
+	border: 1px solid gray;
+}
+
+code,pre,.code {
+	font-family: monospace;
+	font-size: 90%;
+}
+
+pre {
+	margin: 0;
+}
+
+sup {
+	font-size: 60%;
+}
+
+td dl {
+	margin: 0;
+}
+
+dt#Deprecated {
+	color: red;
+}
+
+tr.deprecated {
+	color: gray;
+}
+
+div.hr {
+	height: 2px;
+	background: black;
+	clear: both;
+	margin: 0;
+}
+
+#Content {
+	clear: both;
+	padding: 5px;
+	margin: 5px 0;
+}
+
+#Overview dt,#Details dt,#INDEX dt {
+	font-weight: bold;
+	margin-top: 6px;
+}
+
+#CustomHeader {
+	float: right;
+	text-align: right;
+	padding: 0 2px;
+	margin-left: 10px;
+	font-weight: bold;
+	font-size: 110%;
+}
+
+#CustomFooter {
+	border-top: 2px solid black;
+	border-bottom: 1px solid gray;
+	font-size: 90%;
+	margin: 0;
+	padding: 1px 5px;
+	background-color: #eee;
+}
+
+#entityName {
+	margin: 0;
+}
+
+#entityName span {
+	background-color: #dfafbf;
+	padding: 0 3px;
+	border: 1px solid #aaa;
+}
+
+#entityPackage {
+	margin: 0;
+	margin-top: 3px;
+	margin-left: 25px;
+}
+
+#entityPackage span {
+	padding: 0 3px;
+	background-color: #d7dfaf;
+	border: 1px solid #aaa;
+}
+
+#hierarchy {
+	white-space: pre;
+}
+
+#implementedInterfaces ul,#knownDirectSubclasses ul {
+	list-style: none;
+	margin: 0;
+	margin-left: 0;
+	padding: 2px;
+	padding-left: 0;
+}
+
+#implementedInterfaces li,#knownDirectSubclasses li {
+	display: inline;
+	padding-right: 5px;
+}
+
+#Package-Description {
+	margin-left: 10px;
+}
+
+#Package-Description h2 {
+	margin-left: -10px;
+}
+
+#InheritanceHierarchy {
+	white-space: pre;
+}
+
+#Description {
+	border-top: 1px solid gray;
+	border-bottom: 1px solid gray;
+}
+
+ul.inheritedItems {
+	list-style: none;
+	margin: 0;
+	padding: 2px;
+	padding-left: 0;
+}
+
+ul.inheritedItems li {
+	display: inline;
+	padding-left: 10px;
+}
+
+#Overview dl ul {
+	list-style: none;
+	margin: 0;
+	padding: 2px;
+	padding-left: 0;
+}
+
+#Overview dl li {
+	display: inline;
+	padding-right: 5px;
+}
+
+#Summaries table,#PACKAGE_USE table,#Details div table {
+	width: auto;
+	border-collapse: collapse;
+	margin-left: 10px;
+}
+
+#Summaries th,#Details th,#Summaries td,#Details  td {
+	border: 1px solid gray;
+	padding: 3px;
+	vertical-align: top;
+	text-align: left;
+}
+
+#Summaries th,#Details th {
+	width: 15%;
+}
+
+#CLASS table dt,#INTERFACE table dt,#EXCEPTION table dt,#ERROR table dt,#ENUM table dt,#ANNOTATION table dt,
+	{
+	font-size: 90%;
+	font-family: monospace;
+	font-weight: normal;
+}
+
+#CLASS div th,#INTERFACE div th,#EXCEPTION div th,#ERROR div th,#ENUM div th,#ANNOTATION div th
+	{
+	font-size: 85%;
+	font-family: monospace;
+	font-weight: normal;
+	text-align: right;
+	font-weight: normal;
+}
+
+#ENUM #Enum-Constant-Summary td {
+	font-size: 90%;
+	font-family: monospace;
+	font-weight: bold;
+}
+
+#Details div div {
+	padding-top: 12px;
+}
+
+#Details div div h3 {
+	margin: 0;
+}
+
+#Details div div pre {
+	margin: 5px auto 0;
+}
+
+#Details div div div {
+	margin-top: 0;
+	margin-left: 25px;
+	border-bottom-width: 0;
+}
+
+#Details div div p {
+	margin: 5px auto 0;
+}
+
+#Hierarchies li {
+	list-style: disc;
+}
+
+#PACKAGE th,#PACKAGE_USE th {
+	text-align: left;
+	font-weight: bold;
+}
+
+#PACKAGE_USE dt {
+	margin: 0;
+}
+
+#PACKAGE_FRAME #Content,#ALL_PACKAGES  #Content,#ALL_CLASSES   #Content
+	{
+	padding: 0 5px 5px;
+}
+
+#PACKAGE_FRAME h3,#ALL_PACKAGES  h3,#ALL_CLASSES   h3 {
+	margin: 0 0 6px;
+}
+
+#PACKAGE_FRAME h4,#ALL_PACKAGES  h4,#ALL_CLASSES   h4 {
+	margin: 6px 0 0;
+}
+
+#PACKAGE_FRAME #Interfaces a {
+	font-style: italic;
+}
+
+#OVERVIEW h2 {
+	background-color: #ccc;
+	border: 1px solid gray;
+	padding: 0 3px;
+	margin: 0 0 6px;
+}
+
+#OVERVIEW #Content table {
+	border-collapse: collapse;
+}
+
+#OVERVIEW #Content table th,#OVERVIEW #Content table td {
+	border: 1px solid gray;
+	padding: 2px;
+}
+
+#OVERVIEW_TREE h2 {
+	padding: 0 3px;
+	border: 1px solid #777;
+	margin: 16px 0 6px;
+	font-size: 140%;
+	background-color: #7F9DCF;
+}
+
+#OVERVIEW_TREE li {
+	list-style: disc;
+}
+
+#HELP h2,#HELP h3,#HELP h4 {
+	margin-top: 8px;
+	margin-bottom: 2px;
+}
+
+#HELP p,#HELP ul {
+	margin-top: 0;
+	margin-bottom: 8px;
+}
+
+#HELP .indent {
+	margin-left: 20px;
+}
+
+#HELP #projectReference {
+	font-size: 90%;
+	text-align: center;
+	border: 1px solid #ccc;
+	background-color: #eee;
+}
+
+#DEPRECATED dl {
+	margin-left: 10px;
+}
+
+#DEPRECATED dt {
+	margin-top: 8px;
+}
+
+
+#CONSTANTS h2,#SERIALIZED h2 {
+	font-size: 140%;
+	margin: 16px 0 6px;
+	padding: 0 3px;
+	border: 1px solid #777;
+	background-color: #7f9dcf;
+}
+
+#CONSTANTS h3,#SERIALIZED h3 {
+	margin: 10px 0 6px;
+	padding-left: 2px;
+	border: 1px solid gray;
+	background-color: #ccc498;
+}
+
+#CONSTANTS h4,#SERIALIZED h4 {
+	padding-left: 2px;
+	margin-bottom: 0px;
+	border: 1px solid #ccc;
+	background-color: #eee;
+}
+
+#CONSTANTS table {
+	border-collapse: collapse;
+	margin: 0;
+	padding: 0;
+	font-family: monospace;
+	font-size: 90%;
+}
+
+#CONSTANTS table td {
+	border: solid 1px gray;
+	padding: 1px 4px;
+}
+
+#SERIALIZED dt {
+	font-family: monospace;
+	font-size: 90%;
+	margin-top: 6px;
+}
+
+#SERIALIZED dd {
+	margin-bottom: 0;
+}
+
+#ALL_CLASSES .interface {
+	font-style: italic;
+}
+
+#INDEX h2 {
+	padding: 0 3px;
+	border: 1px solid #777;
+	margin: 16px 0 6px;
+	font-size: 140%;
+	background-color: #7F9DCF;
+}
+#INDEX dt {
+    background-repeat: no-repeat;
+    padding-left: 20px;
+}
+
+#INDEX .deprecated { text-decoration: line-through; }
+#INDEX .deprecated:after { content: " (Deprecated)"; color: red; }
+
+#INDEX .package    { background-image: url(image-files/package.gif); }
+#INDEX .annotation { background-image: url(image-files/annotation.gif); }
+#INDEX .exception  { background-image: url(image-files/exception.gif); }
+#INDEX .error      { background-image: url(image-files/error.gif); }
+
+#INDEX .class.public    { background-image: url(image-files/class_public.gif); }
+#INDEX .class.default   { background-image: url(image-files/class_default.gif); }
+#INDEX .class.protected { background-image: url(image-files/class_protected.gif); }
+#INDEX .class.private   { background-image: url(image-files/class_private.gif); }
+
+#INDEX .interface.public    { background-image: url(image-files/interface_public.gif); }
+#INDEX .interface.default   { background-image: url(image-files/interface_default.gif); }
+#INDEX .interface.protected { background-image: url(image-files/interface_protected.gif); }
+#INDEX .interface.private   { background-image: url(image-files/interface_private.gif); }
+
+#INDEX .enum.public    { background-image: url(image-files/enum_public.gif); }
+#INDEX .enum.default   { background-image: url(image-files/enum_default.gif); }
+#INDEX .enum.protected { background-image: url(image-files/enum_protected.gif); }
+#INDEX .enum.private   { background-image: url(image-files/enum_private.gif); }
+
+#INDEX .constructor.public,
+#INDEX .method.public    { background-image: url(image-files/method_public.gif); }
+#INDEX .constructor.default,
+#INDEX .method.default   { background-image: url(image-files/method_default.gif); }
+#INDEX .constructor.protected,
+#INDEX .method.protected { background-image: url(image-files/method_protected.gif); }
+#INDEX .constructor.private,
+#INDEX .method.private   { background-image: url(image-files/method_private.gif); }
+
+#INDEX .field.public     { background-image: url(image-files/field_public.gif); }
+#INDEX .field.default    { background-image: url(image-files/field_default.gif); }
+#INDEX .field.protected  { background-image: url(image-files/field_protected.gif); }
+#INDEX .field.private    { background-image: url(image-files/field_private.gif); }
+
+/*
+#ALL_PACKAGES .packages a {
+	background-image: url(image-files/package.gif);
+    background-repeat: no-repeat;
+    padding-left: 20px;
+}
+*/
+
+#ALL_CLASSES a {
+    background-repeat: no-repeat;
+    padding-left: 20px;
+}
+
+#ALL_CLASSES .class.public    { background-image: url(image-files/class_public.gif); }
+#ALL_CLASSES .class.default   { background-image: url(image-files/class_default.gif); }
+#ALL_CLASSES .class.protected { background-image: url(image-files/class_protected.gif); }
+#ALL_CLASSES .class.private   { background-image: url(image-files/class_private.gif); }
+
+#ALL_CLASSES .interface.public    { background-image: url(image-files/interface_public.gif); }
+#ALL_CLASSES .interface.default   { background-image: url(image-files/interface_default.gif); }
+#ALL_CLASSES .interface.protected { background-image: url(image-files/interface_protected.gif); }
+#ALL_CLASSES .interface.private   { background-image: url(image-files/interface_private.gif); }
+
+#ALL_CLASSES .enum.public    { background-image: url(image-files/enum_public.gif); }
+#ALL_CLASSES .enum.default   { background-image: url(image-files/enum_default.gif); }
+#ALL_CLASSES .enum.protected { background-image: url(image-files/enum_protected.gif); }
+#ALL_CLASSES .enum.private   { background-image: url(image-files/enum_private.gif); }
+
+#ALL_CLASSES .annotation { background-image: url(image-files/annotation.gif); }
+#ALL_CLASSES .exception  { background-image: url(image-files/exception.gif); }
+#ALL_CLASSES .error      { background-image: url(image-files/error.gif); }
