@@ -34,16 +34,16 @@ public class PropertiesMap {
      * Flow units.
      */
     static public enum FlowUnitsType {
-        AFD(Keywords.w_AFD),         //   cubic feet per second
-        CFS(Keywords.w_CFS),         //   gallons per minute
-        CMD(Keywords.w_CMD),         //   million gallons per day
-        CMH(Keywords.w_CMH),         //   imperial million gal. per day
-        GPM(Keywords.w_GPM),         //   acre-feet per day
-        IMGD(Keywords.w_IMGD),         //   liters per second
+        AFD(Keywords.w_AFD),         //   acre-feet per day
+        CFS(Keywords.w_CFS),         //   cubic feet per second
+        CMD(Keywords.w_CMD),         //   cubic meters per day
+        CMH(Keywords.w_CMH),         //   cubic meters per hour
+        GPM(Keywords.w_GPM),         //   gallons per minute
+        IMGD(Keywords.w_IMGD),       //   imperial million gal. per day
         LPM(Keywords.w_LPM),         //   liters per minute
-        LPS(Keywords.w_LPS),         //   megaliters per day
-        MGD(Keywords.w_MGD),         //   cubic meters per hour
-        MLD(Keywords.w_MLD);         //   cubic meters per day
+        LPS(Keywords.w_LPS),         //   liters per second
+        MGD(Keywords.w_MGD),         //   million gallons per day
+        MLD(Keywords.w_MLD);         //   megaliters per day
 
         public static FlowUnitsType parse(String text) {
             for (FlowUnitsType type : FlowUnitsType.values())
