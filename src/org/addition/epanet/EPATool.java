@@ -43,7 +43,16 @@ import java.util.logging.Logger;
 
 public class EPATool
 {
-    public static String convertToScientifcNotation(Double value, double max_threshold, double min_threshold, int decimal) {
+
+    public static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm:ss");
+
+    public static void consoleLog(String msg)
+    {
+            System.out.println(msg +" " + TIME_FORMAT.format(new Date(System.currentTimeMillis())));
+    }
+
+    public static String convertToScientifcNotation(Double value, double max_threshold, double min_threshold, int decimal)
+    {
         if (value == null)
             return null;
 
@@ -52,7 +61,6 @@ public class EPATool
 
         return String.format("%." + decimal + "f", value);
     }
-
 
     static enum NodeVariableType
     {
@@ -154,49 +162,59 @@ public class EPATool
     }
 
 
-    public static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm:ss");
-
-    public static void consoleLog(String msg)
-    {
-            System.out.println(msg +" " + TIME_FORMAT.format(new Date(System.currentTimeMillis())));
-    }
-
     public static void main(String[] args)
     {
         Logger log = Logger.getLogger(EPATool.class.toString());
         log.setUseParentHandlers(false);
 
-        File inFile = new File(args[0]);
-
-        if(!inFile.exists()){
-            consoleLog("END_RUN_ERR");
-            System.out.println("File not found !");
-            return;
-        }
-
         File hydFile = null;
         File qualFile = null;
         Network net = new Network();
-
         PropertiesMap pMap = null;
 
         List<NodeVariableType> nodesVariables = new ArrayList<NodeVariableType>();
         List<LinkVariableType> linksVariables = new ArrayList<LinkVariableType>();
 
-        Long targetTime = null;
-        String targetNode = null;
-        String targetLink = null;
+        File inFile = null;
+        List<Long> targetTimes = new ArrayList<Long>();
+        List<String> targetNodes = new ArrayList<String>();
+        List<String> targetLinks = new ArrayList<String>();
 
-        for(int  i = 0;i<args.length-1;i++)
+        int parseMode = 0;
+        for(int  i = 0;i<args.length;i++)
         {
-            if(args[i].equals("-T")){
-                targetTime = (long)(Utilities.getHour(args[++i],"")*3600);
+            if(args[i].endsWith(".inp"))
+            {
+                parseMode = 0;
+                inFile = new File(args[i]);
+                if (!inFile.exists()) {
+                    consoleLog("END_RUN_ERR");
+                    System.out.println("File not found !");
+                    return;
+                }
+                continue;
+            }
+            else if(args[i].equals("-T")){
+                parseMode = 1;
+                continue;
             }
             else if(args[i].equals("-N")){
-                targetNode = args[++i];
+                parseMode = 2;
+                continue;
             }
             else if(args[i].equals("-L")){
-                targetLink = args[++i];
+                parseMode = 3;
+                continue;
+            }
+
+            if(parseMode == 1){
+                targetTimes.add((long)(Utilities.getHour(args[i],"")*3600));
+            }
+            else if(parseMode == 2){
+                targetNodes.add(args[i]);
+            }
+            else if(parseMode == 3){
+                targetLinks.add(args[i]);
             }
         }
 
@@ -205,24 +223,31 @@ public class EPATool
             parserINP.parse(net,inFile);
             pMap = net.getPropertiesMap();
 
-            if (targetTime != null )
+            if (targetTimes.size()>0)
             {
-                if(targetTime<pMap.getRstart())
-                    throw new Exception("Target time smaller than simulation start time");
+                for(Long time : targetTimes)
+                {
+                    String epanetTime = Utilities.getClockTime(time);
+                    if(time<pMap.getRstart())
+                        throw new Exception("Target time \""+epanetTime+"\" smaller than simulation start time");
 
-                if(targetTime>pMap.getDuration())
-                    throw new Exception("Target time bigger than simulation duration");
+                    if(time>pMap.getDuration())
+                        throw new Exception("Target time \"" + epanetTime + "\" bigger than simulation duration");
 
-                if((targetTime - pMap.getRstart()) % pMap.getRstep() != 0)
-                    throw new Exception("Target time not found");
-
+                    if((time - pMap.getRstart()) % pMap.getRstep() != 0)
+                        throw new Exception("Target time \"" + epanetTime + "\" not found");
+                }
             }
 
-            if(targetNode!=null && net.getNode(targetNode) == null)
-                throw new Exception("Node \""+targetNode+"\" not found");
+            for (String nodeName : targetNodes) {
+                if (net.getNode(nodeName) == null)
+                    throw new Exception("Node \"" + nodeName + "\" not found");
+            }
 
-            if(targetLink!=null && net.getLink(targetLink) == null)
-                throw new Exception("Link \""+targetLink+"\" not found");
+            for(String linkName:targetLinks){
+                if(net.getLink(linkName) == null)
+                    throw new Exception("Link \""+linkName+"\" not found");
+            }
 
             nodesVariables.add(NodeVariableType.ELEVATION);
             nodesVariables.add(NodeVariableType.BASEDEMAND);
@@ -246,7 +271,6 @@ public class EPATool
 
             consoleLog("START_RUNNING");
 
-
             HydraulicSim hydSim = new HydraulicSim(net, log);
             hydSim.simulate(hydFile);
 
@@ -262,37 +286,53 @@ public class EPATool
 
             HydraulicReader hydReader = new HydraulicReader(new RandomAccessFile(hydFile, "r"));
 
-            BufferedWriter nodesTextWriter = new BufferedWriter(new FileWriter(inFile.getAbsolutePath()+".nodes.out"));
-            BufferedWriter linksTextWriter = new BufferedWriter(new FileWriter(inFile.getAbsolutePath()+".links.out"));
+            BufferedWriter nodesTextWriter = null;
+            BufferedWriter linksTextWriter = null;
+            File nodesOutputFile = null;
+            File linksOutputFile = null;
 
-            nodesTextWriter.write("\t");
-            for(NodeVariableType nodeVar : nodesVariables){
+            if(targetNodes.size() == 0 && targetLinks.size() == 0 || targetNodes.size()>0)
+            {
+                nodesOutputFile = new File(inFile.getAbsolutePath()+".nodes.out");
+                nodesTextWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(nodesOutputFile),"UTF-8"));
+
                 nodesTextWriter.write("\t");
-                nodesTextWriter.write(nodeVar.name);
-            }
-            nodesTextWriter.write("\n\t");
-
-            for(NodeVariableType nodeVar : nodesVariables){
-                nodesTextWriter.write("\t");
-                nodesTextWriter.write(net.getFieldsMap().getField(nodeVar.type).getUnits());
-            }
-            nodesTextWriter.write("\n");
-
-            linksTextWriter.write("\t");
-            for(LinkVariableType linkVar : linksVariables){
-                linksTextWriter.write("\t");
-                linksTextWriter.write(linkVar.name);
-            }
-            linksTextWriter.write("\n\t");
-
-            for(LinkVariableType linkVar : linksVariables){
-                linksTextWriter.write("\t");
-                if(linkVar.type==null){
-                    continue;
+                for (NodeVariableType nodeVar : nodesVariables) {
+                    nodesTextWriter.write("\t");
+                    nodesTextWriter.write(nodeVar.name);
                 }
-                linksTextWriter.write(net.getFieldsMap().getField(linkVar.type).getUnits());
+                nodesTextWriter.write("\n\t");
+
+                for (NodeVariableType nodeVar : nodesVariables) {
+                    nodesTextWriter.write("\t");
+                    nodesTextWriter.write(net.getFieldsMap().getField(nodeVar.type).getUnits());
+                }
+                nodesTextWriter.write("\n");
             }
-            linksTextWriter.write("\n");
+
+
+            if(targetNodes.size() == 0 && targetLinks.size() == 0 || targetLinks.size()>0)
+            {
+                linksOutputFile = new File(inFile.getAbsolutePath()+".links.out");
+                linksTextWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(linksOutputFile),"UTF-8"));
+
+                linksTextWriter.write("\t");
+                for (LinkVariableType linkVar : linksVariables) {
+                    linksTextWriter.write("\t");
+                    linksTextWriter.write(linkVar.name);
+                }
+                linksTextWriter.write("\n\t");
+
+                for (LinkVariableType linkVar : linksVariables) {
+                    linksTextWriter.write("\t");
+                    if (linkVar.type == null) {
+                        continue;
+                    }
+                    linksTextWriter.write(net.getFieldsMap().getField(linkVar.type).getUnits());
+                }
+                linksTextWriter.write("\n");
+            }
+
 
             for (long time = pMap.getRstart(); time <= pMap.getDuration(); time += pMap.getRstep())
             {
@@ -300,57 +340,69 @@ public class EPATool
 
                 int i = 0;
 
-                if(targetTime != null && targetTime != time)
+                if(targetTimes.size() > 0 && !targetTimes.contains(time))
                     continue;
 
-                for(Node node : net.getNodes())
+                if(nodesTextWriter!=null)
                 {
-                    if(targetNode!=null && !targetNode.equals(node.getId()))
-                        continue;
+                    for(Node node : net.getNodes())
+                    {
+                        if(targetNodes.size()>0 && !targetNodes.contains(node.getId()))
+                            continue;
 
-                    nodesTextWriter.write(node.getId());
+                        nodesTextWriter.write(node.getId());
 
-                    nodesTextWriter.write("\t");
-                    nodesTextWriter.write(Utilities.getClockTime(time));
-
-                    for (NodeVariableType nodeVar : nodesVariables){
                         nodesTextWriter.write("\t");
-                        Double val = nodeVar.getValue(net.getFieldsMap(),step,node,i);
-                        nodesTextWriter.write(convertToScientifcNotation(val,1000,0.01,2));
+                        nodesTextWriter.write(Utilities.getClockTime(time));
+
+                        for (NodeVariableType nodeVar : nodesVariables){
+                            nodesTextWriter.write("\t");
+                            Double val = nodeVar.getValue(net.getFieldsMap(),step,node,i);
+                            nodesTextWriter.write(convertToScientifcNotation(val,1000,0.01,2));
+                        }
+
+                        nodesTextWriter.write("\n");
+
+                        i++;
                     }
-
-                    nodesTextWriter.write("\n");
-
-                    i++;
                 }
-
 
                 i = 0;
 
-                for(Link link : net.getLinks())
+                if(linksTextWriter!=null)
                 {
-                    if(targetLink!=null && !targetLink.equals(link.getId()))
-                        continue;
+                    for(Link link : net.getLinks())
+                    {
+                        if (targetLinks.size() > 0 && !targetLinks.contains(link.getId()))
+                            continue;
 
-                    linksTextWriter.write(link.getId());
+                        linksTextWriter.write(link.getId());
 
-                    linksTextWriter.write("\t");
-                    linksTextWriter.write(Utilities.getClockTime(time));
-
-                    for (LinkVariableType linkVar : linksVariables){
                         linksTextWriter.write("\t");
-                        Double val = linkVar.getValue(net.getFieldsMap(),step,link,i);
-                        linksTextWriter.write(convertToScientifcNotation(val,1000,0.01,2));
+                        linksTextWriter.write(Utilities.getClockTime(time));
+
+                        for (LinkVariableType linkVar : linksVariables) {
+                            linksTextWriter.write("\t");
+                            Double val = linkVar.getValue(net.getFieldsMap(), step, link, i);
+                            linksTextWriter.write(convertToScientifcNotation(val, 1000, 0.01, 2));
+                        }
+
+                        linksTextWriter.write("\n");
+
+                        i++;
                     }
-
-                    linksTextWriter.write("\n");
-
-                    i++;
                 }
             }
 
-            nodesTextWriter.close();
-            linksTextWriter.close();
+            if(nodesTextWriter!=null){
+                nodesTextWriter.close();
+                consoleLog("NODES FILE \"" + nodesOutputFile.getAbsolutePath() +"\"");
+            }
+
+            if(linksTextWriter!=null){
+                linksTextWriter.close();
+                consoleLog("LINKS FILES \"" + nodesOutputFile.getAbsolutePath() +"\"");
+            }
 
             consoleLog("END_RUN_OK");
         }
