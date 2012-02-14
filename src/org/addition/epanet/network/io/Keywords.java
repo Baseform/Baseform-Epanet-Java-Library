@@ -192,9 +192,9 @@ public class Keywords {
     public static String  u_MLD        ="ML/d";
     public static String  u_MMETERS    ="mm";
     public static String  u_MperSEC    ="m/s";
-    public static String  u_per1000FT  ="/1000ft";
+    public static String  u_per1000FT  ="/kft";
 
-    public static String  u_per1000M   ="/1000m";
+    public static String  u_per1000M   ="/km";
     public static String  u_PERCENT    ="%";
     public static String  u_PSI        ="psi";
     public static String  u_SQFTperSEC ="sq ft/sec";

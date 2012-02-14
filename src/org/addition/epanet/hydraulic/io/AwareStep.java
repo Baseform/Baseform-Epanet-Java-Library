@@ -24,6 +24,7 @@ import org.addition.epanet.hydraulic.structures.SimulationLink;
 import org.addition.epanet.hydraulic.structures.SimulationNode;
 import org.addition.epanet.network.FieldsMap;
 import org.addition.epanet.network.PropertiesMap;
+import org.addition.epanet.network.structures.Field;
 import org.addition.epanet.network.structures.Link;
 import org.addition.epanet.network.structures.Node;
 import org.addition.epanet.network.structures.Pump;
@@ -43,8 +44,8 @@ import java.util.List;
  * Aware compatible hydraulic step snapshot
  */
 public class AwareStep {
-    private double [] QN;
-    private double [] QL;
+    private double[] QN;
+    private double[] QL;
     private double[] D;
     private double[] H;
     private double[] Q;
@@ -119,8 +120,8 @@ public class AwareStep {
     }
 
     public static void writeHydAndQual(DataOutput outStream, HydraulicSim hydraulicSim, QualitySim qualitySim, long step, long time) throws IOException, ENException {
-        List<QualityNode> qNodes = qualitySim!=null?qualitySim.getnNodes():null;
-        List<QualityLink> qLinks = qualitySim!=null?qualitySim.getnLinks():null;
+        List<QualityNode> qNodes = qualitySim != null ? qualitySim.getnNodes() : null;
+        List<QualityLink> qLinks = qualitySim != null ? qualitySim.getnLinks() : null;
         List<SimulationNode> nodes = hydraulicSim.getnNodes();
         List<SimulationLink> links = hydraulicSim.getnLinks();
 
@@ -130,18 +131,18 @@ public class AwareStep {
         int baSize = (nNodes * 3 + nLinks * 3) * Double.SIZE / 8 + Long.SIZE * 2 / 8;
         ByteBuffer buf = ByteBuffer.allocate(baSize);
 
-        int count= 0;
+        int count = 0;
         for (SimulationNode node : nodes) {
             buf.putDouble(node.getSimDemand());
             buf.putDouble(node.getSimHead());
-            buf.putDouble(qualitySim!=null?qNodes.get(count++).getQuality():0.0);
+            buf.putDouble(qualitySim != null ? qNodes.get(count++).getQuality() : 0.0);
         }
 
         count = 0;
         for (SimulationLink link : links) {
             buf.putDouble(link.getSimStatus().id <= Link.StatType.CLOSED.id ? 0d : link.getSimFlow());
             buf.putDouble((link.getFirst().getSimHead() - link.getSecond().getSimHead()));
-            buf.putDouble(qualitySim!=null?qLinks.get(count++).getAverageQuality(null):0);
+            buf.putDouble(qualitySim != null ? qLinks.get(count++).getAverageQuality(null) : 0);
         }
 
         buf.putLong(step);
@@ -193,8 +194,8 @@ public class AwareStep {
         Q = new double[nLinks];
         DH = new double[nLinks];
 
-        QN = new double [nNodes];
-        QL = new double [nLinks];
+        QN = new double[nNodes];
+        QL = new double[nLinks];
 
         int baSize = (nNodes * 3 + nLinks * 3) * Double.SIZE / 8 +
                 Long.SIZE * 2 / 8;
@@ -271,24 +272,18 @@ public class AwareStep {
 
     public double getLinkHeadLoss(int id, Link link, FieldsMap fMap) {
         try {
-            double flow = getLinkFlow(id, link, null);
-            double HL;
-            if (flow == 0)
-                HL = 0;
-            else {
-
-
+            if (getLinkFlow(id, link, null) == 0) {
+                return 0.0;
+            } else {
                 double h = DH[id];
                 if (!(link instanceof Pump))
                     h = Math.abs(h);
 
                 if (link.getType().id <= Link.LinkType.PIPE.id)
-                    HL = (1000.0 * h / link.getLenght());
+                    return (1000 * h / link.getLenght());
                 else
-                    HL = h;
+                    return fMap != null ? fMap.revertUnit(FieldsMap.Type.HEADLOSS, h) : h;
             }
-
-            return fMap != null ? fMap.revertUnit(FieldsMap.Type.HEADLOSS, HL) : HL;
         } catch (ENException e) {
             return 0;
         }
@@ -315,11 +310,11 @@ public class AwareStep {
         }
     }
 
-    public double getLinkAvrQuality(int id){
+    public double getLinkAvrQuality(int id) {
         return QL[id];
     }
 
-    public double getNodeQuality(int id){
+    public double getNodeQuality(int id) {
         return QN[id];
     }
 

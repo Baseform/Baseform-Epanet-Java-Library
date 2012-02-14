@@ -189,7 +189,7 @@ public class FieldsMap {
             getField(Type.DIAM).setUnits(Keywords.u_MMETERS);
             getField(Type.FLOW).setUnits(flowFlag.parseStr);
             getField(Type.VELOCITY).setUnits(Keywords.u_MperSEC);
-            getField(Type.HEADLOSS).setUnits(Keywords.u_per1000M);
+            getField(Type.HEADLOSS).setUnits("m"+Keywords.u_per1000M);
             getField(Type.FRICTION).setUnits("");
             getField(Type.POWER).setUnits(Keywords.u_KW);
 
@@ -215,7 +215,7 @@ public class FieldsMap {
             getField(Type.DIAM).setUnits(Keywords.u_INCHES);
             getField(Type.FLOW).setUnits(flowFlag.parseStr);
             getField(Type.VELOCITY).setUnits(Keywords.u_FTperSEC);
-            getField(Type.HEADLOSS).setUnits(Keywords.u_per1000FT);
+            getField(Type.HEADLOSS).setUnits("ft"+Keywords.u_per1000FT);
             getField(Type.FRICTION).setUnits("");
             getField(Type.POWER).setUnits(Keywords.u_HP);
 

@@ -95,9 +95,9 @@ public class EPATool
                 case ELEVATION:
                     return fmap.revertUnit(type, node.getElevation());
                 case DEMAND:
-                    return step != null ? fmap.revertUnit(type, step.getNodeDemand(index, node, null)) : 0;
+                    return step != null ? step.getNodeDemand(index, node, fmap) : 0;
                 case HEAD:
-                    return step != null ? fmap.revertUnit(type, step.getNodeHead(index, node, null)) : 0;
+                    return step != null ? step.getNodeHead(index, node, fmap) : 0;
                 case INITQUALITY:
                 {
                     double dsum = 0;
@@ -107,9 +107,9 @@ public class EPATool
                     return dsum != 0 ? fmap.revertUnit(type, dsum / node.getC0().length) : fmap.revertUnit(type, dsum);
                 }
                 case PRESSURE:
-                    return step != null ? fmap.revertUnit(type, step.getNodePressure(index, node, null)) : 0;
+                    return step != null ? step.getNodePressure(index, node, fmap) : 0;
                 case QUALITY:
-                    return step != null ? fmap.revertUnit(type, step.getNodeQuality(index)) : 0;
+                    return step != null ? step.getNodeQuality(index) : 0;
                 default:
                     return 0.0;
             }
@@ -146,13 +146,13 @@ public class EPATool
                 case ROUGHNESS:
                     return fmap.revertUnit(type, link.getRoughness());
                 case FLOW:
-                    return step != null ? fmap.revertUnit(type, Math.abs(step.getLinkFlow(index, link, null))) : 0;
+                    return step != null ? Math.abs(step.getLinkFlow(index, link, fmap)) : 0;
                 case VELOCITY:
-                    return step != null ? fmap.revertUnit(type, Math.abs(step.getLinkVelocity(index, link, null))) : 0;
+                    return step != null ? Math.abs(step.getLinkVelocity(index, link, fmap)) : 0;
                 case UNITHEADLOSS:
-                    return step != null ? fmap.revertUnit(type, step.getLinkHeadLoss(index, link, null)) : 0;
+                    return step != null ? step.getLinkHeadLoss(index, link, fmap) : 0;
                 case FRICTIONFACTOR:
-                    return step != null ? fmap.revertUnit(type, step.getLinkFriction(index, link, null)) : 0;
+                    return step != null ? step.getLinkFriction(index, link, fmap) : 0;
                 case QUALITY:
                     return step != null ? fmap.revertUnit(type, step.getLinkAvrQuality(index)) : 0;
                 default:
