@@ -29,6 +29,7 @@ import org.addition.epanet.network.io.input.InputParser;
 import org.addition.epanet.network.structures.Demand;
 import org.addition.epanet.network.structures.Link;
 import org.addition.epanet.network.structures.Node;
+import org.addition.epanet.network.structures.Pump;
 import org.addition.epanet.quality.QualityReader;
 import org.addition.epanet.quality.QualitySim;
 import org.addition.epanet.util.ENException;
@@ -136,7 +137,8 @@ public class EPATool
             this.type = type;
         }
 
-        public double getValue(FieldsMap fmap, AwareStep step, Link link, int index) throws ENException
+
+        public double getValue(PropertiesMap.FormType formType,FieldsMap fmap, AwareStep step, Link link, int index) throws ENException
         {
             switch (this) {
                 case LENGHT:
@@ -144,7 +146,10 @@ public class EPATool
                 case DIAMETER:
                     return fmap.revertUnit(type, link.getDiameter());
                 case ROUGHNESS:
-                    return fmap.revertUnit(type, link.getRoughness());
+                    if(link.getType()== Link.LinkType.PIPE && formType == PropertiesMap.FormType.DW)
+                        return fmap.revertUnit(FieldsMap.Type.DIAM, link.getRoughness());
+                    else
+                        return link.getRoughness();
                 case FLOW:
                     return step != null ? Math.abs(step.getLinkFlow(index, link, fmap)) : 0;
                 case VELOCITY:
@@ -383,7 +388,7 @@ public class EPATool
 
                         for (LinkVariableType linkVar : linksVariables) {
                             linksTextWriter.write("\t");
-                            Double val = linkVar.getValue(net.getFieldsMap(), step, link, i);
+                            Double val = linkVar.getValue(net.getPropertiesMap().getFormflag(),net.getFieldsMap(), step, link, i);
                             linksTextWriter.write(convertToScientifcNotation(val, 1000, 0.01, 2));
                         }
 
