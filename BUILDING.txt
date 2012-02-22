@@ -1,0 +1,68 @@
+////////////////////////////////////////////////////////////////
+Baseform EpaNet Java Library 1.0 - 2012-02-22
+////////////////////////////////////////////////////////////////
+
+Baseform EpaNet Java Library is part of the Baseform EpaNet tool
+<http://www.baseform.org/np4/tools/epanetTool.html>.
+
+Baseform EpaNet Java Library is open-source and licensed under the GNU General Public License, or GPL.
+See LICENSE.txt for detailed terms and conditions.
+
+///////
+HOW TO BUILD
+///////
+Provided with the source code is an ant build file "ant.xml" this file can create up to five outputs:
+- dist/out - compiled classes
+- dist/BaseformEpaNetLib-1.0.jar - basic usable JAR library
+- dist/BaseformEpaNetLib-1.0_allin.jar - JAR library with all dependencies inside
+- dist/BaseformEpaNetLib-1.0_wUI.jar - JAR library including "launchpad" windowed user interface
+- dist/doc - full java documentation in javadoc web format
+
+You'll need to fetch a few open-source libraries to compile "Baseform EpaNet Java Library". A possible build
+libraries tree is:
+    lib
+        forms_rt.jar
+        intellij_build
+            asm-commons.jar
+            asm.jar
+            javac2.jar
+            jdom.jar
+        jep
+            jeplite-0.8.7a-bin.jar
+        jgoodies-common-1.1.1.jar
+        jgoodies-looks-2.4.0.jar
+        poi
+            dom4j-1.6.1.jar
+            poi-3.7-20101029.jar
+            poi-ooxml-3.7-20101029.jar
+            poi-ooxml-schemas-3.7-20101029.jar
+            xbean_xpath.jar
+            xbean.jar
+            xmlbeans-qname.jar
+            xmlpublic.jar
+        XHTML_Doclet_0.4.jar
+        xstream-1.3.jar
+
+///////
+DEPENDENCIES
+///////
+EpaNet Java Library is self-contained. It uses or depends on these open-source libraries for identified
+specific functionality:
+
+- MSX expression parsing:
+    JEPLite - JEP enlited - http://jeplite.sourceforge.net/
+
+- XML input and output of the models
+    XStream - http://xstream.codehaus.org/
+
+- XLS/XLSX input and output (of the network and of simulation results)
+    Apache POI "Poor Obfuscation Implementation" - http://poi.apache.org/
+
+- User interface of the LaunchPad
+    JGoodies Looks - http://www.jgoodies.com
+    JetBrains Forms Runtime - http://www.jetbrains.com/
+
+- Compilation of the UI
+    ASM all purpose Java bytecode manipulation and analysis framework - http://asm.ow2.org/
+    JetBrains JAVA2C ant task - http://www.jetbrains.com/
+    JDOM - http://www.jdom.org/

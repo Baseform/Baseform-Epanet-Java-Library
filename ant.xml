@@ -1,0 +1,191 @@
+<!--
+  ~ Copyright (C) 2012  Addition, Lda. (addition at addition dot pt)
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see http://www.gnu.org/licenses/.
+  -->
+
+<project name="ant_build" default="all">
+    <target name="all" depends="jar,bigjar,javadoc"/>
+    <target name="clean">
+        <delete dir="dist" />
+        <delete dir="doc" />
+    </target>
+
+    <target name="jar">
+        <mkdir dir="dist/out"/>
+        <javac srcdir="src" destdir="dist/out" debug="off">
+            <classpath>
+                <pathelement location="lib/forms_rt.jar"/>
+                <pathelement location="lib/jep/jeplite-0.8.7a-bin.jar"/>
+                <pathelement location="lib/jgoodies-common-1.1.1.jar"/>
+                <pathelement location="lib/jgoodies-looks-2.4.0.jar"/>
+
+                <pathelement location="lib/poi/dom4j-1.6.1.jar"/>
+                <pathelement location="lib/poi/poi-3.7-20101029.jar"/>
+                <pathelement location="lib/poi/poi-ooxml-3.7-20101029.jar"/>
+                <pathelement location="lib/poi/poi-ooxml-schemas-3.7-20101029.jar"/>
+                <pathelement location="lib/poi/xbean.jar"/>
+                <pathelement location="lib/poi/xbean_xpath.jar"/>
+                <pathelement location="lib/poi/xmlbeans-qname.jar"/>
+                <pathelement location="lib/poi/xmlpublic.jar"/>
+
+                <pathelement location="lib/xstream-1.3.jar"/>
+
+                <pathelement location="lib/XHTML_Doclet_0.4.jar"/>
+            </classpath>
+
+        </javac>
+        <copy todir="dist/out">
+            <fileset dir="src" includes="*.properties"/>
+            <fileset dir="src" includes="**/*.png"/>
+        </copy>
+        <jar basedir="dist/out" destfile="dist/BaseformEpaNetLib-1.0.jar" duplicate="preserve" level="9">
+            <manifest>
+                <attribute name="Built-By" value="${user.name}"/>
+                <attribute name="Implementation-Vendor" value="Addition"/>
+                <attribute name="Implementation-Title" value="Baseform EpaNet Java Library"/>
+                <attribute name="Implementation-Version" value="1.0.0"/>
+                <attribute name="Main-Class"
+                           value="org.addition.epanet.EPATool"/>
+
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="jar_with_ui">
+        <taskdef name="javac2" classname="com.intellij.ant.Javac2">
+            <classpath>
+                <pathelement location="lib/intellij_build/javac2.jar"/>
+                <pathelement location="lib/intellij_build/jdom.jar"/>
+                <pathelement location="lib/intellij_build/asm.jar"/>
+                <pathelement location="lib/intellij_build/asm-commons.jar"/>
+                <!--<pathelement location="lib/jgoodies-forms.jar"/>-->
+            </classpath>
+        </taskdef>
+
+
+        <mkdir dir="dist/out"/>
+        <javac2 srcdir="src" destdir="dist/out" debug="off">
+            <classpath>
+                <pathelement location="lib/forms_rt.jar"/>
+                <pathelement location="lib/jep/jeplite-0.8.7a-bin.jar"/>
+                <pathelement location="lib/jgoodies-common-1.1.1.jar"/>
+                <pathelement location="lib/jgoodies-looks-2.4.0.jar"/>
+
+                <pathelement location="lib/poi/dom4j-1.6.1.jar"/>
+                <pathelement location="lib/poi/poi-3.7-20101029.jar"/>
+                <pathelement location="lib/poi/poi-ooxml-3.7-20101029.jar"/>
+                <pathelement location="lib/poi/poi-ooxml-schemas-3.7-20101029.jar"/>
+                <pathelement location="lib/poi/xbean.jar"/>
+                <pathelement location="lib/poi/xbean_xpath.jar"/>
+                <pathelement location="lib/poi/xmlbeans-qname.jar"/>
+                <pathelement location="lib/poi/xmlpublic.jar"/>
+
+                <pathelement location="lib/xstream-1.3.jar"/>
+
+                <pathelement location="lib/XHTML_Doclet_0.4.jar"/>
+            </classpath>
+
+        </javac2>
+        <copy todir="dist/out">
+            <fileset dir="src" includes="*.properties"/>
+            <fileset dir="src" includes="**/*.png"/>
+        </copy>
+        <jar basedir="dist/out" destfile="dist/BaseformEpaNetLib-1.0_wUI.jar" duplicate="preserve" level="9">
+            <manifest>
+                <attribute name="Built-By" value="${user.name}"/>
+                <attribute name="Implementation-Vendor" value="Addition"/>
+                <attribute name="Implementation-Title" value="Baseform EpaNet Java Library"/>
+                <attribute name="Implementation-Version" value="1.0.0"/>
+                <attribute name="Main-Class"
+                           value="org.addition.epanet.EPATool"/>
+
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="bigjar" depends="jar">
+
+        <copy todir="dist/out">
+            <fileset dir="src" includes="*.properties"/>
+            <fileset dir="src" includes="**/*.png"/>
+        </copy>
+        <jar destfile="dist/BaseformEpaNetLib-1.0_allin.jar" duplicate="preserve" level="9">
+            <zipfileset src="dist/BaseformEpaNetLib-1.0.jar"/>
+
+            <zipfileset src="lib/forms_rt.jar"/>
+            <zipfileset src="lib/jgoodies-common-1.1.1.jar"/>
+            <zipfileset src="lib/jep/jeplite-0.8.7a-bin.jar"/>
+            <zipfileset src="lib/jgoodies-looks-2.4.0.jar"/>
+
+            <zipfileset src="lib/poi/dom4j-1.6.1.jar"/>
+            <zipfileset src="lib/poi/poi-3.7-20101029.jar"/>
+            <zipfileset src="lib/poi/poi-ooxml-3.7-20101029.jar"/>
+            <zipfileset src="lib/poi/poi-ooxml-schemas-3.7-20101029.jar"/>
+            <zipfileset src="lib/poi/xbean.jar"/>
+            <zipfileset src="lib/poi/xbean_xpath.jar"/>
+            <zipfileset src="lib/poi/xmlbeans-qname.jar"/>
+            <zipfileset src="lib/poi/xmlpublic.jar"/>
+
+            <zipfileset src="lib/xstream-1.3.jar"/>
+            <manifest>
+                <attribute name="Built-By" value="${user.name}"/>
+                <attribute name="Implementation-Vendor" value="Addition"/>
+                <attribute name="Implementation-Title" value="Baseform EpaNet Java Library"/>
+                <attribute name="Implementation-Version" value="1.0.0"/>
+                <attribute name="Main-Class"
+                           value="org.addition.epanet.EPATool"/>
+
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="javadoc">
+
+        <mkdir dir="doc"/>
+        <javadoc
+                access="public"
+                destdir="doc"
+                author="true"
+                version="true"
+                use="true"
+                windowtitle="Baseform Epanet Java Library"
+                stylesheetfile="src/javadoc.css"
+                >
+            <classpath>
+                <pathelement location="lib/forms_rt.jar"/>
+                <pathelement location="lib/jep/jeplite-0.8.7a-bin.jar"/>
+                <pathelement location="lib/jgoodies-common-1.1.1.jar"/>
+                <pathelement location="lib/jgoodies-looks-2.4.0.jar"/>
+
+                <pathelement location="lib/poi/dom4j-1.6.1.jar"/>
+                <pathelement location="lib/poi/poi-3.7-20101029.jar"/>
+                <pathelement location="lib/poi/poi-ooxml-3.7-20101029.jar"/>
+                <pathelement location="lib/poi/poi-ooxml-schemas-3.7-20101029.jar"/>
+                <pathelement location="lib/poi/xbean.jar"/>
+                <pathelement location="lib/poi/xbean_xpath.jar"/>
+                <pathelement location="lib/poi/xmlbeans-qname.jar"/>
+                <pathelement location="lib/poi/xmlpublic.jar"/>
+
+                <pathelement location="lib/xstream-1.3.jar"/>
+
+                <pathelement location="lib/XHTML_Doclet_0.4.jar"/>
+            </classpath>
+            <doclet name="net.sourceforge.xhtmldoclet.Doclet" path="lib/XHTML_Doclet_0.4.jar"
+                    description="-docletpath lib/XHTML_Doclet_0.4.jar"/>
+            <fileset dir="src" includes="**/*.java"/>
+        </javadoc>
+    </target>
+
+</project>

@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////
-Baseform EpaNet Java Library 1.0 - 2012-02-02
+Baseform EpaNet Java Library 1.0 - 2012-02-22
 ////////////////////////////////////////////////////////////////
 
 Baseform EpaNet Java Library is part of the Baseform EpaNet tool
@@ -35,25 +35,16 @@ to write any code (org.addition.epanet.ui.EpanetUI).
 ///////
 USAGE/HOW-TO
 ///////
-You can use the library by downloading the binary (jar, exe, or mac dmg app) on baseform.org, or by linking and
-compiling this source code against your project.
+You by linking and compiling this source code against your project or by using the more full featured web-enabled
+Baseform Epanet Tool as described on http://www.baseform.org/np4/tools/epanetTool.html.
+
 
 
 ///////
-DEPENDENCIES
+RELEASE HISTORY
 ///////
-EpaNet Java Library is self-contained. It uses or depends on these open-source libraries for identified
-specific functionality:
+2012-02-22
+Included ant build script
 
-- MSX expression parsing:
-    JEPLite - JEP enlited - http://jeplite.sourceforge.net/
-
-- XML input and output of the models
-    XStream - http://xstream.codehaus.org/
-
-- XLS/XLSX input and output (of the network and of simulation results)
-    Apache POI "Poor Obfuscation Implementation" - http://poi.apache.org/
-
-- User interface of the LaunchPad
-    JGoodies Looks - http://www.jgoodies.com
-    JetBrains Forms Runtime - http://www.jetbrains.com/
+2012-02-15
+Official launch
