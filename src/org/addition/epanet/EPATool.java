@@ -18,7 +18,6 @@
 package org.addition.epanet;
 
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.addition.epanet.hydraulic.HydraulicSim;
 import org.addition.epanet.hydraulic.io.AwareStep;
 import org.addition.epanet.hydraulic.io.HydraulicReader;
@@ -29,8 +28,6 @@ import org.addition.epanet.network.io.input.InputParser;
 import org.addition.epanet.network.structures.Demand;
 import org.addition.epanet.network.structures.Link;
 import org.addition.epanet.network.structures.Node;
-import org.addition.epanet.network.structures.Pump;
-import org.addition.epanet.quality.QualityReader;
 import org.addition.epanet.quality.QualitySim;
 import org.addition.epanet.util.ENException;
 import org.addition.epanet.util.Utilities;
@@ -42,18 +39,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class EPATool
-{
+public class EPATool {
 
     public static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm:ss");
 
-    public static void consoleLog(String msg)
-    {
-            System.out.println(msg +" " + TIME_FORMAT.format(new Date(System.currentTimeMillis())));
+    public static void consoleLog(String msg) {
+        System.out.println(msg + " " + TIME_FORMAT.format(new Date(System.currentTimeMillis())));
     }
 
-    public static String convertToScientifcNotation(Double value, double max_threshold, double min_threshold, int decimal)
-    {
+    public static String convertToScientifcNotation(Double value, double max_threshold, double min_threshold, int decimal) {
         if (value == null)
             return null;
 
@@ -63,8 +57,7 @@ public class EPATool
         return String.format("%." + decimal + "f", value);
     }
 
-    static enum NodeVariableType
-    {
+    static enum NodeVariableType {
         ELEVATION("ELEVATION", FieldsMap.Type.ELEV),
         PRESSURE("PRESSURE", FieldsMap.Type.PRESSURE),
         HEAD("HEAD", FieldsMap.Type.HEAD),
@@ -81,12 +74,9 @@ public class EPATool
             this.type = type;
         }
 
-        public double getValue(FieldsMap fmap, AwareStep step, Node node, int index) throws ENException
-        {
-            switch (this)
-            {
-                case BASEDEMAND:
-                {
+        public double getValue(FieldsMap fmap, AwareStep step, Node node, int index) throws ENException {
+            switch (this) {
+                case BASEDEMAND: {
                     double dsum = 0;
                     for (Demand demand : node.getDemand()) {
                         dsum += demand.getBase();
@@ -99,8 +89,7 @@ public class EPATool
                     return step != null ? step.getNodeDemand(index, node, fmap) : 0;
                 case HEAD:
                     return step != null ? step.getNodeHead(index, node, fmap) : 0;
-                case INITQUALITY:
-                {
+                case INITQUALITY: {
                     double dsum = 0;
                     for (double v : node.getC0()) {
                         dsum += v;
@@ -118,8 +107,7 @@ public class EPATool
     }
 
 
-    static enum LinkVariableType
-    {
+    static enum LinkVariableType {
         LENGHT("LENGHT", FieldsMap.Type.LENGTH),
         DIAMETER("DIAMETER", FieldsMap.Type.DIAM),
         ROUGHNESS("ROUGHNESS", null),
@@ -138,15 +126,14 @@ public class EPATool
         }
 
 
-        public double getValue(PropertiesMap.FormType formType,FieldsMap fmap, AwareStep step, Link link, int index) throws ENException
-        {
+        public double getValue(PropertiesMap.FormType formType, FieldsMap fmap, AwareStep step, Link link, int index) throws ENException {
             switch (this) {
                 case LENGHT:
                     return fmap.revertUnit(type, link.getLenght());
                 case DIAMETER:
                     return fmap.revertUnit(type, link.getDiameter());
                 case ROUGHNESS:
-                    if(link.getType()== Link.LinkType.PIPE && formType == PropertiesMap.FormType.DW)
+                    if (link.getType() == Link.LinkType.PIPE && formType == PropertiesMap.FormType.DW)
                         return fmap.revertUnit(FieldsMap.Type.DIAM, link.getRoughness());
                     else
                         return link.getRoughness();
@@ -167,8 +154,7 @@ public class EPATool
     }
 
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         Logger log = Logger.getLogger(EPATool.class.toString());
         log.setUseParentHandlers(false);
 
@@ -186,10 +172,8 @@ public class EPATool
         List<String> targetLinks = new ArrayList<String>();
 
         int parseMode = 0;
-        for(int  i = 0;i<args.length;i++)
-        {
-            if(args[i].endsWith(".inp"))
-            {
+        for (int i = 0; i < args.length; i++) {
+            if (args[i].endsWith(".inp")) {
                 parseMode = 0;
                 inFile = new File(args[i]);
                 if (!inFile.exists()) {
@@ -198,48 +182,41 @@ public class EPATool
                     return;
                 }
                 continue;
-            }
-            else if(args[i].equals("-T")){
+            } else if (args[i].equals("-T")) {
                 parseMode = 1;
                 continue;
-            }
-            else if(args[i].equals("-N")){
+            } else if (args[i].equals("-N")) {
                 parseMode = 2;
                 continue;
-            }
-            else if(args[i].equals("-L")){
+            } else if (args[i].equals("-L")) {
                 parseMode = 3;
                 continue;
             }
 
-            if(parseMode == 1){
-                targetTimes.add((long)(Utilities.getHour(args[i],"")*3600));
-            }
-            else if(parseMode == 2){
+            if (parseMode == 1) {
+                targetTimes.add((long) (Utilities.getHour(args[i], "") * 3600));
+            } else if (parseMode == 2) {
                 targetNodes.add(args[i]);
-            }
-            else if(parseMode == 3){
+            } else if (parseMode == 3) {
                 targetLinks.add(args[i]);
             }
         }
 
         try {
             InputParser parserINP = InputParser.create(Network.FileType.INP_FILE, log);
-            parserINP.parse(net,inFile);
+            parserINP.parse(net, inFile);
             pMap = net.getPropertiesMap();
 
-            if (targetTimes.size()>0)
-            {
-                for(Long time : targetTimes)
-                {
+            if (targetTimes.size() > 0) {
+                for (Long time : targetTimes) {
                     String epanetTime = Utilities.getClockTime(time);
-                    if(time<pMap.getRstart())
-                        throw new Exception("Target time \""+epanetTime+"\" smaller than simulation start time");
+                    if (time < pMap.getRstart())
+                        throw new Exception("Target time \"" + epanetTime + "\" smaller than simulation start time");
 
-                    if(time>pMap.getDuration())
+                    if (time > pMap.getDuration())
                         throw new Exception("Target time \"" + epanetTime + "\" bigger than simulation duration");
 
-                    if((time - pMap.getRstart()) % pMap.getRstep() != 0)
+                    if ((time - pMap.getRstart()) % pMap.getRstep() != 0)
                         throw new Exception("Target time \"" + epanetTime + "\" not found");
                 }
             }
@@ -249,9 +226,9 @@ public class EPATool
                     throw new Exception("Node \"" + nodeName + "\" not found");
             }
 
-            for(String linkName:targetLinks){
-                if(net.getLink(linkName) == null)
-                    throw new Exception("Link \""+linkName+"\" not found");
+            for (String linkName : targetLinks) {
+                if (net.getLink(linkName) == null)
+                    throw new Exception("Link \"" + linkName + "\" not found");
             }
 
             nodesVariables.add(NodeVariableType.ELEVATION);
@@ -280,8 +257,7 @@ public class EPATool
             hydSim.simulate(hydFile);
 
 
-            if (!net.getPropertiesMap().getQualflag().equals(PropertiesMap.QualType.NONE))
-            {
+            if (!net.getPropertiesMap().getQualflag().equals(PropertiesMap.QualType.NONE)) {
                 qualFile = File.createTempFile("qualSim", "bin");
 
                 QualitySim q = new QualitySim(net, log);
@@ -296,10 +272,9 @@ public class EPATool
             File nodesOutputFile = null;
             File linksOutputFile = null;
 
-            if(targetNodes.size() == 0 && targetLinks.size() == 0 || targetNodes.size()>0)
-            {
-                nodesOutputFile = new File(inFile.getAbsolutePath()+".nodes.out");
-                nodesTextWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(nodesOutputFile),"UTF-8"));
+            if (targetNodes.size() == 0 && targetLinks.size() == 0 || targetNodes.size() > 0) {
+                nodesOutputFile = new File(inFile.getAbsolutePath() + ".nodes.out");
+                nodesTextWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(nodesOutputFile), "UTF-8"));
 
                 nodesTextWriter.write("\t");
                 for (NodeVariableType nodeVar : nodesVariables) {
@@ -316,10 +291,9 @@ public class EPATool
             }
 
 
-            if(targetNodes.size() == 0 && targetLinks.size() == 0 || targetLinks.size()>0)
-            {
-                linksOutputFile = new File(inFile.getAbsolutePath()+".links.out");
-                linksTextWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(linksOutputFile),"UTF-8"));
+            if (targetNodes.size() == 0 && targetLinks.size() == 0 || targetLinks.size() > 0) {
+                linksOutputFile = new File(inFile.getAbsolutePath() + ".links.out");
+                linksTextWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(linksOutputFile), "UTF-8"));
 
                 linksTextWriter.write("\t");
                 for (LinkVariableType linkVar : linksVariables) {
@@ -339,20 +313,17 @@ public class EPATool
             }
 
 
-            for (long time = pMap.getRstart(); time <= pMap.getDuration(); time += pMap.getRstep())
-            {
+            for (long time = pMap.getRstart(); time <= pMap.getDuration(); time += pMap.getRstep()) {
                 AwareStep step = hydReader.getStep((int) time);
 
                 int i = 0;
 
-                if(targetTimes.size() > 0 && !targetTimes.contains(time))
+                if (targetTimes.size() > 0 && !targetTimes.contains(time))
                     continue;
 
-                if(nodesTextWriter!=null)
-                {
-                    for(Node node : net.getNodes())
-                    {
-                        if(targetNodes.size()>0 && !targetNodes.contains(node.getId()))
+                if (nodesTextWriter != null) {
+                    for (Node node : net.getNodes()) {
+                        if (targetNodes.size() > 0 && !targetNodes.contains(node.getId()))
                             continue;
 
                         nodesTextWriter.write(node.getId());
@@ -360,10 +331,10 @@ public class EPATool
                         nodesTextWriter.write("\t");
                         nodesTextWriter.write(Utilities.getClockTime(time));
 
-                        for (NodeVariableType nodeVar : nodesVariables){
+                        for (NodeVariableType nodeVar : nodesVariables) {
                             nodesTextWriter.write("\t");
-                            Double val = nodeVar.getValue(net.getFieldsMap(),step,node,i);
-                            nodesTextWriter.write(convertToScientifcNotation(val,1000,0.01,2));
+                            Double val = nodeVar.getValue(net.getFieldsMap(), step, node, i);
+                            nodesTextWriter.write(convertToScientifcNotation(val, 1000, 0.01, 2));
                         }
 
                         nodesTextWriter.write("\n");
@@ -374,10 +345,8 @@ public class EPATool
 
                 i = 0;
 
-                if(linksTextWriter!=null)
-                {
-                    for(Link link : net.getLinks())
-                    {
+                if (linksTextWriter != null) {
+                    for (Link link : net.getLinks()) {
                         if (targetLinks.size() > 0 && !targetLinks.contains(link.getId()))
                             continue;
 
@@ -388,7 +357,7 @@ public class EPATool
 
                         for (LinkVariableType linkVar : linksVariables) {
                             linksTextWriter.write("\t");
-                            Double val = linkVar.getValue(net.getPropertiesMap().getFormflag(),net.getFieldsMap(), step, link, i);
+                            Double val = linkVar.getValue(net.getPropertiesMap().getFormflag(), net.getFieldsMap(), step, link, i);
                             linksTextWriter.write(convertToScientifcNotation(val, 1000, 0.01, 2));
                         }
 
@@ -399,25 +368,21 @@ public class EPATool
                 }
             }
 
-            if(nodesTextWriter!=null){
+            if (nodesTextWriter != null) {
                 nodesTextWriter.close();
-                consoleLog("NODES FILE \"" + nodesOutputFile.getAbsolutePath() +"\"");
+                consoleLog("NODES FILE \"" + nodesOutputFile.getAbsolutePath() + "\"");
             }
 
-            if(linksTextWriter!=null){
+            if (linksTextWriter != null) {
                 linksTextWriter.close();
-                consoleLog("LINKS FILES \"" + nodesOutputFile.getAbsolutePath() +"\"");
+                consoleLog("LINKS FILES \"" + nodesOutputFile.getAbsolutePath() + "\"");
             }
 
             consoleLog("END_RUN_OK");
-        }
-        catch (ENException e)
-        {
+        } catch (ENException e) {
             consoleLog("END_RUN_ERR");
             e.printStackTrace();
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             consoleLog("END_RUN_ERR");
             e.printStackTrace();
         } catch (Exception e) {
@@ -425,10 +390,10 @@ public class EPATool
             e.printStackTrace();
         }
 
-        if(hydFile!=null)
+        if (hydFile != null)
             hydFile.delete();
 
-        if(qualFile!=null)
+        if (qualFile != null)
             qualFile.delete();
     }
 }

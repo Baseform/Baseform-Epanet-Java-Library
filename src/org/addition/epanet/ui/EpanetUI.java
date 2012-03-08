@@ -17,7 +17,6 @@
 
 package org.addition.epanet.ui;
 
-import com.apple.eawt.Application;
 import com.jgoodies.looks.plastic.Plastic3DLookAndFeel;
 import org.addition.epanet.util.ENException;
 import org.addition.epanet.network.Network;
@@ -35,6 +34,7 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.logging.*;
 
 /**
@@ -42,7 +42,7 @@ import java.util.logging.*;
  */
 public class EpanetUI implements ActionListener {
 
-    private static final String AWARE_P_WEBLINK = "http://www.aware-p.org/";
+    private static final String WEBLINK = "http://www.baseform.org/?epaToolLink";
     private JPanel root;
     private JButton openINPButton;
     private JButton runSimulationButton;
@@ -110,7 +110,7 @@ public class EpanetUI implements ActionListener {
     /**
      * Application title string.
      */
-    private static final String APP_TITTLE = "Aware-P Epanet ";
+    private static final String APP_TITTLE = "Baseform Epanet Java";
 
     /**
      * Reference for the file>open entry.
@@ -321,7 +321,7 @@ public class EpanetUI implements ActionListener {
         } else if (e.getSource().equals(runSimulationButton)) {
             runSimulation();
         } else if (e.getSource() == logoB) {
-            browse(AWARE_P_WEBLINK);
+            browse(WEBLINK);
         }
         network.repaint();
     }
@@ -525,21 +525,29 @@ public class EpanetUI implements ActionListener {
             System.setProperty("apple.laf.useScreenMenuBar", "true");
             System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Aware-P Epanet");
 
-            Application app = Application.getApplication();
-            app.setDockIconImage(Toolkit.getDefaultToolkit().getImage(EpanetUI.class.getResource("/uiresources/ae.png")));
+            try {
+                
+                Class<?> appCl = Class.forName("com.apple.eawt.Application");
+                Object app = appCl.getMethod("getApplication", new Class[]{}).invoke(null);
+                Image dockImage = Toolkit.getDefaultToolkit().getImage(EpanetUI.class.getResource("/uiresources/ae.png"));
+                appCl.getMethod("setDockIconImage",java.awt.Image.class).invoke(app, dockImage);
+                JMenuBar menuBar = new JMenuBar();
+                JMenu fileMenu = new JMenu("File");
+                menuBar.add(fileMenu);
 
-            JMenuBar menuBar = new JMenuBar();
-            JMenu fileMenu = new JMenu("File");
-            menuBar.add(fileMenu);
+                openAction = new JMenuItem("Open");
+                saveAction = new JMenuItem("Save");
+                runAction = new JMenuItem("Run");
 
-            openAction = new JMenuItem("Open");
-            saveAction = new JMenuItem("Save");
-            runAction = new JMenuItem("Run");
+                fileMenu.add(openAction);
+                fileMenu.add(saveAction);
+                fileMenu.add(runAction);
+                appCl.getMethod("setDefaultMenuBar",javax.swing.JMenuBar.class).invoke(app,menuBar);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
 
-            fileMenu.add(openAction);
-            fileMenu.add(saveAction);
-            fileMenu.add(runAction);
-            app.setDefaultMenuBar(menuBar);
+
         }
         UIManager.setLookAndFeel(new Plastic3DLookAndFeel());
         new EpanetUI();
