@@ -43,6 +43,9 @@ Baseform Epanet Tool as described on http://www.baseform.org/np4/tools/epanetToo
 ///////
 RELEASE HISTORY
 ///////
+2012-06-25
+Eliminated nonsense method "Link.setNURoughness(...)"
+
 2012-03-08
 Updated ant build script; included binary builds (jar, exe and dmg)
 

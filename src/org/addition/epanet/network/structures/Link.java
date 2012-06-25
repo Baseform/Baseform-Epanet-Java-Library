@@ -18,7 +18,7 @@
 package org.addition.epanet.network.structures;
 
 import org.addition.epanet.Constants;
-
+import org.addition.epanet.network.FieldsMap;
 import org.addition.epanet.network.PropertiesMap;
 import org.addition.epanet.network.io.Keywords;
 import org.addition.epanet.util.ENException;
@@ -30,10 +30,9 @@ import java.util.List;
 /**
  * Hydraulic link structure (pipe)
  */
-public class Link implements Comparable<Link>{
+public class Link implements Comparable<Link> {
     /**
      * Init links flow resistance values.
-     *
      *
      * @param formflag
      * @param hexp
@@ -421,18 +420,6 @@ public class Link implements Comparable<Link>{
         lenght = NUConvert.convertDistance(type, value);
     }
 
-    public void setNURoughness(PropertiesMap.FlowUnitsType fType, PropertiesMap.PressUnitsType pType, double SpGrav, double value) {
-        switch (getType()) {
-            case FCV:
-                roughness = NUConvert.convertFlow(fType, value);
-            case PRV:
-            case PSV:
-            case PBV:
-                roughness = NUConvert.convertPressure(pType, SpGrav, value);
-        }
-        roughness = value;
-    }
-
     public void setParam(double[] param) {
         this.param = param;
     }
@@ -473,6 +460,7 @@ public class Link implements Comparable<Link>{
     public int hashCode() {
         return ID != null ? ID.hashCode() : 0;
     }
+
     public int compareTo(Link o) {
         return ID.compareTo(o.ID);
     }
