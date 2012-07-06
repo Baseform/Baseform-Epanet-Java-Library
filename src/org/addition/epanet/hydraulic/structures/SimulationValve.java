@@ -28,6 +28,7 @@ import org.addition.epanet.network.structures.Link.StatType;
 import org.addition.epanet.util.ENException;
 import org.addition.epanet.util.Utilities;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -36,7 +37,7 @@ import java.util.logging.Logger;
  */
 public class SimulationValve extends SimulationLink {
 
-    public SimulationValve(List<SimulationNode> indexedNodes, Link ref, int idx) {
+    public SimulationValve(Collection<SimulationNode> indexedNodes, Link ref, int idx) {
         super(indexedNodes, ref, idx);
     }
 

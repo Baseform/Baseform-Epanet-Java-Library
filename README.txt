@@ -45,6 +45,9 @@ RELEASE HISTORY
 ///////
 
 2012-07-06
+Simulation network performance boost.
+
+2012-07-06
 CV pipes and multiple demands IO bugs fixed
 
 2012-06-25

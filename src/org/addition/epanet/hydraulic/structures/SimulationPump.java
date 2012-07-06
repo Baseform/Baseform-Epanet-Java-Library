@@ -29,6 +29,7 @@ import org.addition.epanet.network.structures.Pump;
 import org.addition.epanet.util.ENException;
 import org.addition.epanet.util.Utilities;
 
+import java.util.Collection;
 import java.util.List;
 
 public class SimulationPump extends SimulationLink {
@@ -47,7 +48,7 @@ public class SimulationPump extends SimulationLink {
         public double efficiency;   // Pump effiency
     }
 
-    public SimulationPump(List<SimulationNode> indexedNodes, Link ref, int idx) {
+    public SimulationPump(Collection<SimulationNode> indexedNodes, Link ref, int idx) {
         super(indexedNodes, ref, idx);
         for (int i = 0; i < 6; i++)
             energy[i] = ((Pump) ref).getEnergy(0);

@@ -39,7 +39,9 @@ import org.addition.epanet.util.Utilities;
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 /**
@@ -194,9 +196,11 @@ public class HydraulicSim {
         nRules = new ArrayList<SimulationRule>();
 
 
+        Map<String,SimulationNode> nodesById=new HashMap<String, SimulationNode>();
         for (Node n : tmpNodes) {
             SimulationNode node = SimulationNode.createIndexedNode(n, nNodes.size());
             nNodes.add(node);
+            nodesById.put(node.getId(),node);
 
             if (node instanceof SimulationTank)
                 nTanks.add((SimulationTank) node);
@@ -205,7 +209,7 @@ public class HydraulicSim {
         }
 
         for (Link l : tmpLinks) {
-            SimulationLink link = SimulationLink.createIndexedLink(nNodes, l, nLinks.size());
+            SimulationLink link = SimulationLink.createIndexedLink(nodesById, l, nLinks.size());
             nLinks.add(link);
 
             if (link instanceof SimulationValve)

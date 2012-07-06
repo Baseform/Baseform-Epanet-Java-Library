@@ -32,7 +32,9 @@ import org.addition.epanet.network.structures.Valve;
 import org.addition.epanet.util.ENException;
 import org.addition.epanet.util.Utilities;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 public class SimulationLink {
@@ -50,6 +52,19 @@ public class SimulationLink {
     protected double setting;        // Epanet 'K[k]', Link setting
     protected StatType oldStatus;
 
+
+    public static SimulationLink createIndexedLink(Map<String, SimulationNode> byId, Link ref, int idx) {
+        SimulationLink ret = null;
+        if (ref instanceof Valve)
+            ret = new SimulationValve(byId.values(), ref, idx);
+        else if (ref instanceof Pump)
+            ret = new SimulationPump(byId.values(), ref, idx);
+        else
+            ret = new SimulationLink(byId, ref, idx);
+
+        return ret;
+    }
+
     public static SimulationLink createIndexedLink(List<SimulationNode> indexedNodes, Link ref, int idx) {
         SimulationLink ret = null;
         if (ref instanceof Valve)
@@ -62,7 +77,20 @@ public class SimulationLink {
         return ret;
     }
 
-    public SimulationLink(List<SimulationNode> indexedNodes, Link ref, int idx) {
+    public SimulationLink(Map<String, SimulationNode> byId, Link ref, int idx) {
+
+        link = ref;
+        first = byId.get(link.getFirst().getId());
+        second = byId.get(link.getSecond().getId());
+        this.index = idx;
+
+        // Init
+        setting = link.getRoughness();
+        status = link.getStat();
+
+    }
+
+    public SimulationLink(Collection<SimulationNode> indexedNodes, Link ref, int idx) {
         link = ref;
 
         for (SimulationNode indexedNode : indexedNodes) {
