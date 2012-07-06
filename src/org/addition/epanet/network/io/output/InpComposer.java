@@ -235,7 +235,7 @@ public class InpComposer extends OutputComposer{
 
         List<Link> pipes = new ArrayList<Link>();
         for(Link link : net.getLinks())
-            if(link.getType() == LinkType.PIPE)
+            if(link.getType() == LinkType.PIPE || link.getType() == LinkType.CV)
                 pipes.add(link);
 
 
@@ -388,14 +388,8 @@ public class InpComposer extends OutputComposer{
         double ucf = fMap.getUnits(Type.DEMAND);
 
         for(Node node : net.getJunctions()){
-            //for(Demand demand : node.getDemand()){
-            //    buffer.write(String.format(" %s\t%.6f\t",node.getId(),ucf*demand.getBase()));
-            //    if(demand.getPattern()!=null)
-            //        buffer.write(demand.getPattern().getId());
-            //    buffer.newLine();
-            //}
             if (node.getDemand().size() > 1)
-                for(int i = 1;i<node.getDemand().size();i++){
+                for(int i = 0;i<node.getDemand().size();i++){
                     Demand demand = node.getDemand().get(i);
                     buffer.write(String.format("%s\t%s",node.getId(), ucf * demand.getBase()));
                     if (demand.getPattern() != null)

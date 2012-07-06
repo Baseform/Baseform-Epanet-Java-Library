@@ -43,6 +43,10 @@ Baseform Epanet Tool as described on http://www.baseform.org/np4/tools/epanetToo
 ///////
 RELEASE HISTORY
 ///////
+
+2012-07-06
+CV pipes and multiple demands IO bugs fixed
+
 2012-06-25
 Eliminated nonsense method "Link.setNURoughness(...)"
 
