@@ -44,6 +44,12 @@ Baseform Epanet Tool as described on http://www.baseform.org/np4/tools/epanetToo
 RELEASE HISTORY
 ///////
 
+2012-10-02
+Bug fix on SimulationRule order parsing [thanks for finding and solving, José Pedro Matos].
+
+2012-07-11
+Simulation network performance - hydraulics.
+
 2012-07-06
 Simulation network performance boost.
 

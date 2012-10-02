@@ -298,7 +298,6 @@ public class SimulationLink {
                                     final Curve[] curves,
                                     final SparseMatrix smat, final LSVariables ls) throws ENException {
 
-        long i1 = System.currentTimeMillis();
         switch (getType()) {
             // Pipes
             case CV:
@@ -325,8 +324,6 @@ public class SimulationLink {
                 return;
         }
 
-//        T1 += System.currentTimeMillis() - i1;//TODO:REMOVE THIS
-
         int n1 = first.getIndex();
         int n2 = second.getIndex();
 
@@ -347,7 +344,6 @@ public class SimulationLink {
         } else
             ls.addRHSCoeff(smat.getRow(n1), +(invHeadLoss * second.getSimHead()));
 
-//        T2 += System.currentTimeMillis() - i1;//TODO:REMOVE THIS
     }
 
     // Computes P & Y coefficients for pipe k

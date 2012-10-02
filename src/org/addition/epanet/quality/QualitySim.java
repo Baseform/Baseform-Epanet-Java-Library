@@ -106,6 +106,9 @@ public class QualitySim {
      */
     private double Wwall;
 
+    private transient final Double elevUnits;
+    private transient final PropertiesMap.QualType qualflag;
+
 
     /**
      * Initializes WQ solver system
@@ -142,8 +145,9 @@ public class QualitySim {
         Tucf = 1.0;
         Reactflag = false;
 
-        if (pMap.getQualflag() != PropertiesMap.QualType.NONE) {
-            if (pMap.getQualflag() == PropertiesMap.QualType.TRACE) {
+        qualflag = pMap.getQualflag();
+        if (qualflag != PropertiesMap.QualType.NONE) {
+            if (qualflag == PropertiesMap.QualType.TRACE) {
                 for (QualityNode qN : nodes)
                     if (qN.getNode().getId().equals(pMap.getTraceNode())) {
                         traceNode = qN;
@@ -173,6 +177,7 @@ public class QualitySim {
         Rtime = pMap.getRstart();
         Qtime = 0;
         Nperiods = 0;
+        elevUnits = fMap.getUnits(FieldsMap.Type.ELEV);
     }
 
     /**
@@ -258,7 +263,7 @@ public class QualitySim {
         double vsum = 0.0,
                 msum = 0.0;
 
-        if (pMap.getQualflag() == PropertiesMap.QualType.NONE)
+        if (qualflag == PropertiesMap.QualType.NONE)
             return (0.);
 
         for (QualitySegment seg : ql.getSegments()) {
@@ -320,8 +325,8 @@ public class QualitySim {
         }
 
 
-        if (pMap.getQualflag() != PropertiesMap.QualType.NONE && Qtime < pMap.getDuration()) {
-            if (Reactflag && pMap.getQualflag() != PropertiesMap.QualType.AGE)
+        if (qualflag != PropertiesMap.QualType.NONE && Qtime < pMap.getDuration()) {
+            if (Reactflag && qualflag != PropertiesMap.QualType.AGE)
                 ratecoeffs();
 
             if (Qtime == 0)
@@ -331,42 +336,7 @@ public class QualitySim {
         }
     }
 
-    //updates WQ conditions over a single WQ time step
-    //private long stepqual(DataOutputStream outStream,DataSeek dseek) throws ENException, IOException {
-    //    long dt, hstep, tstep;
-    //    tstep = pMap.getQstep();
-    //    do
-    //    {
-    //        dt = tstep;
-    //        hstep = Htime - Qtime;
-    //        if (hstep < dt)
-    //        {
-    //            dt = hstep;
-    //            if (pMap.getQualflag() != PropertiesMap.QualType.NONE)
-    //                transport(dt);
-    //            Qtime += dt;
-    //            Qtime = runqual(outStream,dseek);
-    //        }
-    //        else
-    //        {
-    //            if (pMap.getQualflag() != PropertiesMap.QualType.NONE)
-    //                transport(dt);
-    //            Qtime += dt;
-    //        }
-    //        tstep -= dt;
-    //
-    //    }  while ( tstep > 0);
-    //    long tleft = pMap.getDuration() - Qtime;
-    //    //if (errcode!=0 && epanetold.isSaveflag() && tleft == 0)
-    //    //    errcode = savefinaloutput();
-    //    return tleft;
-    //}
 
-    //    public double   getWbulk()    {return Wbulk;}
-//    public double   getWwall()    {return Wwall;}
-//    public double   getWtank()    {return Wtank;}
-//    public double   getWsource()  {return Wsource;}
-//    public int      getNperiods() {return Nperiods;}
     public long getQtime() {
         return Qtime;
     }
@@ -375,9 +345,9 @@ public class QualitySim {
      * Checks if reactive chemical being simulated.
      */
     private boolean getReactflag() throws ENException {
-        if (pMap.getQualflag() == PropertiesMap.QualType.TRACE)
+        if (qualflag == PropertiesMap.QualType.TRACE)
             return (false);
-        else if (pMap.getQualflag() == PropertiesMap.QualType.AGE)
+        else if (qualflag == PropertiesMap.QualType.AGE)
             return (true);
         else {
             for (QualityLink qL : links) {
@@ -483,7 +453,7 @@ public class QualitySim {
 
         hydstep = Htime - Qtime;
 
-        if (pMap.getQualflag() != PropertiesMap.QualType.NONE && hydstep > 0)
+        if (qualflag != PropertiesMap.QualType.NONE && hydstep > 0)
             transport(hydstep);
 
         tstep = hydstep;
@@ -501,7 +471,7 @@ public class QualitySim {
 
         hydstep = Htime - Qtime;
 
-        if (pMap.getQualflag() != PropertiesMap.QualType.NONE && hydstep > 0)
+        if (qualflag != PropertiesMap.QualType.NONE && hydstep > 0)
             transport(hydstep);
 
         tstep = hydstep;
@@ -522,7 +492,7 @@ public class QualitySim {
             if (pMap.getWallOrder() == 0.0)
                 return (Constants.BIG);
             else
-                return (ql.getLink().getKw() * (4.0 / d) / fMap.getUnits(FieldsMap.Type.ELEV));
+                return (ql.getLink().getKw() * (4.0 / d) / elevUnits);
         }
 
         a = Constants.PI * d * d / 4.0;
@@ -546,7 +516,7 @@ public class QualitySim {
         if (pMap.getWallOrder() == 0.0) return (kf);
 
 
-        kw = ql.getLink().getKw() / fMap.getUnits(FieldsMap.Type.ELEV);
+        kw = ql.getLink().getKw() / elevUnits;
         kw = (4.0 / d) * kw * kf / (kf + Math.abs(kw));
         return (kw);
     }
@@ -558,7 +528,7 @@ public class QualitySim {
         double cnew, dc, dcbulk, dcwall, rbulk, rwall;
 
 
-        if (pMap.getQualflag() == PropertiesMap.QualType.AGE) return (c + (double) dt / 3600.0);
+        if (qualflag == PropertiesMap.QualType.AGE) return (c + (double) dt / 3600.0);
 
 
         rbulk = bulkrate(c, ql.getLink().getKb(), pMap.getBulkOrder()) * Bucf;
@@ -747,8 +717,8 @@ public class QualitySim {
 
         Htime += hydStep;
 
-        if (pMap.getQualflag() != PropertiesMap.QualType.NONE && Qtime < pMap.getDuration()){
-            if (Reactflag && pMap.getQualflag() != PropertiesMap.QualType.AGE)
+        if (qualflag != PropertiesMap.QualType.NONE && Qtime < pMap.getDuration()){
+            if (Reactflag && qualflag != PropertiesMap.QualType.AGE)
                 ratecoeffs();
 
             if (Qtime == 0)
@@ -777,7 +747,7 @@ public class QualitySim {
             qN.setSourceContribution(0);
 
 
-        if (pMap.getQualflag() != PropertiesMap.QualType.CHEM)
+        if (qualflag != PropertiesMap.QualType.CHEM)
             return;
 
         for (QualityNode qN : nodes) {
@@ -1160,7 +1130,7 @@ public class QualitySim {
         if (!Reactflag)
             return (c);
 
-        if (pMap.getQualflag() == PropertiesMap.QualType.AGE)
+        if (qualflag == PropertiesMap.QualType.AGE)
             return (c + (double) dt / 3600.0);
 
         rbulk = bulkrate(c, kb, pMap.getTankOrder()) * Tucf;
@@ -1211,7 +1181,7 @@ public class QualitySim {
         updatetanks(dt);
 
         // For flow tracing, set source node concen. to 100.
-        if (pMap.getQualflag() == PropertiesMap.QualType.TRACE)
+        if (qualflag == PropertiesMap.QualType.TRACE)
             traceNode.setQuality(100.0);
     }
 
@@ -1231,7 +1201,7 @@ public class QualitySim {
                 double cseg = seg.c;
                 seg.c = pipereact(qL, seg.c, seg.v, dt);
 
-                if (pMap.getQualflag() == PropertiesMap.QualType.CHEM) {
+                if (qualflag == PropertiesMap.QualType.CHEM) {
                     rsum += Math.abs((seg.c - cseg)) * seg.v;
                     vsum += seg.v;
                 }
@@ -1252,7 +1222,7 @@ public class QualitySim {
     private void updatesourcenodes(long dt) throws ENException {
         Source source;
 
-        if (pMap.getQualflag() != PropertiesMap.QualType.CHEM) return;
+        if (qualflag != PropertiesMap.QualType.CHEM) return;
 
 
         for (QualityNode qN : nodes) {
@@ -1312,7 +1282,7 @@ public class QualitySim {
             return (0.0);
         if (pMap.getWallOrder() == 0.0) {
             kf = Utilities.getSignal(kw) * c * kf;
-            kw = kw * Math.pow(fMap.getUnits(FieldsMap.Type.ELEV), 2);
+            kw = kw * Math.pow(elevUnits, 2);
             if (Math.abs(kf) < Math.abs(kw))
                 kw = kf;
             return (kw * 4.0 / d);

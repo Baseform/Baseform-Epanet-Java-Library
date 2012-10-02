@@ -822,7 +822,7 @@ public class SimulationRule {
 
     protected void parsePremise(String []Tok,Rule.Rulewords logop,List<SimulationNode> nodes, List<SimulationLink> links) throws ENException {
         Premise p = new Premise(Tok,logop,nodes, links);
-        Pchain.add(0,p);
+        Pchain.add(p);
 
     }
 
