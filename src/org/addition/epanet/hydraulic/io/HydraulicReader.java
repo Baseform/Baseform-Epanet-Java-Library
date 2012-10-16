@@ -61,7 +61,7 @@ public class HydraulicReader implements Iterable<AwareStep> {
         if (curStep != null) {
             if (curStep.getTime() == time) return curStep;
         }
-        while (curStep==null || curStep.getTime() < time && curStep.getStep() != 0)
+        while (curStep==null || curStep.getTime() < time)
             curStep = new AwareStep(inputStream, headerInfo);
         return curStep.getTime() >= time ? curStep : null;
 

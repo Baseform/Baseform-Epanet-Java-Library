@@ -160,7 +160,7 @@ public class HydraulicSim {
         return Htime;
     }
 
-   /**
+    /**
      * Get current report time.
      *
      * @return
@@ -196,11 +196,11 @@ public class HydraulicSim {
         nRules = new ArrayList<SimulationRule>();
 
 
-        Map<String,SimulationNode> nodesById=new HashMap<String, SimulationNode>();
+        Map<String, SimulationNode> nodesById = new HashMap<String, SimulationNode>();
         for (Node n : tmpNodes) {
             SimulationNode node = SimulationNode.createIndexedNode(n, nNodes.size());
             nNodes.add(node);
-            nodesById.put(node.getId(),node);
+            nodesById.put(node.getId(), node);
 
             if (node instanceof SimulationTank)
                 nTanks.add((SimulationTank) node);
@@ -319,7 +319,7 @@ public class HydraulicSim {
 
     public long simulateSingleStep() throws ENException, IOException {
 
-        if(!running)
+        if (!running)
             running = true;
 
         if (!runHyd()) {
@@ -368,8 +368,8 @@ public class HydraulicSim {
         running = true;
 
         simulationOutput = out;
-        if (simulationOutput != null){
-            AwareStep.writeHeader(out, this,pMap.getRstart(),pMap.getRstep(),pMap.getDuration());
+        if (simulationOutput != null) {
+            AwareStep.writeHeader(out, this, pMap.getRstart(), pMap.getRstep(), pMap.getDuration());
         }
 //        writeHeader(simulationOutput);
         try {
@@ -691,12 +691,11 @@ public class HydraulicSim {
     protected long nextHyd() throws ENException, IOException {
         long hydstep = 0;
 
+        if (simulationOutput != null)
+            AwareStep.write(simulationOutput, this, Htime);
 
         if (Htime < pMap.getDuration())
             hydstep = timeStep();
-
-        if (simulationOutput != null)
-            AwareStep.write(simulationOutput, this, hydstep);
 
         if (pMap.getDuration() == 0)
             SimulationPump.stepEnergy(pMap, fMap, Epat, nPumps, Htime, 0);

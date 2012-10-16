@@ -633,10 +633,8 @@ public class ExcelComposer extends OutputComposer {
             writer.newSpreadsheet("Valves");
             composeValves(net);
 
-            writer.newSpreadsheet("Status");
+            writer.newSpreadsheet("Demands");
             composeDemands(net);
-            composeEmitters(net);
-            composeStatus(net);
 
             writer.newSpreadsheet("Patterns");
             composePatterns(net);
@@ -659,6 +657,8 @@ public class ExcelComposer extends OutputComposer {
             composeTimes(net);
             composeOptions(net);
             composeReport(net);
+            composeEmitters(net);
+            composeStatus(net);
 
             writer.newSpreadsheet("GIS");
             composeLabels(net);

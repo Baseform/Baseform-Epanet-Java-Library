@@ -44,6 +44,9 @@ Baseform Epanet Tool as described on http://www.baseform.org/np4/tools/epanetToo
 RELEASE HISTORY
 ///////
 
+2012-10-16
+Bug fix on nextHyd/getStep affecting hydraulic fine results on some scenarios [thanks for finding, José Pedro Matos].
+
 2012-10-02
 Bug fix on SimulationRule order parsing [thanks for finding and solving, José Pedro Matos].
 
