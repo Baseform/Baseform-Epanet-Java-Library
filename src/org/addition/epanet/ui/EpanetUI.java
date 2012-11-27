@@ -521,12 +521,38 @@ public class EpanetUI implements ActionListener {
      *
      */
     public static void main(String[] args) throws UnsupportedLookAndFeelException {
+//        if (Utilities.isMac()) {
+//            System.setProperty("apple.laf.useScreenMenuBar", "true");
+//            System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Aware-P Epanet");
+//
+//            try {
+//
+//                Class<?> appCl = Class.forName("com.apple.eawt.Application");
+//                Object app = appCl.getMethod("getApplication", new Class[]{}).invoke(null);
+//                Image dockImage = Toolkit.getDefaultToolkit().getImage(EpanetUI.class.getResource("/uiresources/ae.png"));
+//                appCl.getMethod("setDockIconImage",java.awt.Image.class).invoke(app, dockImage);
+//                JMenuBar menuBar = new JMenuBar();
+//                JMenu fileMenu = new JMenu("File");
+//                menuBar.add(fileMenu);
+//
+//                openAction = new JMenuItem("Open");
+//                saveAction = new JMenuItem("Save");
+//                runAction = new JMenuItem("Run");
+//
+//                fileMenu.add(openAction);
+//                fileMenu.add(saveAction);
+//                fileMenu.add(runAction);
+//                appCl.getMethod("setDefaultMenuBar",javax.swing.JMenuBar.class).invoke(app,menuBar);
+//            } catch (Exception e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
         if (Utilities.isMac()) {
             System.setProperty("apple.laf.useScreenMenuBar", "true");
             System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Aware-P Epanet");
 
             try {
-                
+
                 Class<?> appCl = Class.forName("com.apple.eawt.Application");
                 Object app = appCl.getMethod("getApplication", new Class[]{}).invoke(null);
                 Image dockImage = Toolkit.getDefaultToolkit().getImage(EpanetUI.class.getResource("/uiresources/ae.png"));
@@ -542,15 +568,20 @@ public class EpanetUI implements ActionListener {
                 fileMenu.add(openAction);
                 fileMenu.add(saveAction);
                 fileMenu.add(runAction);
-                appCl.getMethod("setDefaultMenuBar",javax.swing.JMenuBar.class).invoke(app,menuBar);
+//                appCl.getMethod("setDefaultMenuBar",javax.swing.JMenuBar.class).invoke(app,menuBar);
+
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-
-
         }
-        UIManager.setLookAndFeel(new Plastic3DLookAndFeel());
+        try {
+            UIManager.setLookAndFeel(new Plastic3DLookAndFeel());
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+
         new EpanetUI();
+
     }
 
     /**

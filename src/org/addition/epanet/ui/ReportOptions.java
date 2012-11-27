@@ -470,7 +470,7 @@ public class ReportOptions implements ActionListener {
                 return;
             }
 
-            actions.setVisible(false);
+//            actions.setVisible(false);  bug in windows java 7(? general contract)
 
             Thread repThread = new Thread() {
 

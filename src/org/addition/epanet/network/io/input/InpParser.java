@@ -1484,7 +1484,8 @@ public class InpParser extends InputParser {
             return;
         }
 
-        throw new ENException(201);
+        log.info("Unknow section keyword "+Tok[0]+" value "+Tok[1]);
+//        throw new ENException(201);
     }
 
     protected void parseOption(Network net, String[] Tok) throws ENException {

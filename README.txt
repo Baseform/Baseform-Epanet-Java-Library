@@ -44,6 +44,10 @@ Baseform Epanet Tool as described on http://www.baseform.org/np4/tools/epanetToo
 RELEASE HISTORY
 ///////
 
+2012-11-27
+Better handling of files modified by Epanet's Toolkit [thanks for your input, Antonio del Olmo García].
+Workarounds for Java 7 specifics.
+
 2012-10-16
 Bug fix on nextHyd/getStep affecting hydraulic fine results on some scenarios [thanks for finding, José Pedro Matos].
 
