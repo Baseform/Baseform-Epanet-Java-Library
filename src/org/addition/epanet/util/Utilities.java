@@ -116,7 +116,7 @@ public class Utilities {
         }
         if (units.equalsIgnoreCase(Keywords.w_PM))
         {
-            if (y[0] >= 13.0) return(-1.0);
+            if (y[0] >= 13.0) return(y[0]-12.0);
             if (y[0] >= 12.0) return(y[0]);
             else return(y[0]+12.0);
         }

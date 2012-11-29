@@ -538,6 +538,7 @@ public class InpParser extends InputParser {
                 m++;
             }
             getpumpcurve(Tok, pump, m, X);
+            return; /* If 4-th token is a number then input follows Version 1.x format  so retrieve pump curve parameters */
 
         }
 

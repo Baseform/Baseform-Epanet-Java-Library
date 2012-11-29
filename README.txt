@@ -44,6 +44,9 @@ Baseform Epanet Tool as described on http://www.baseform.org/np4/tools/epanetToo
 RELEASE HISTORY
 ///////
 
+2012-11-29
+Added leniency for a few inp sections, loading more files now [thanks for your input & models, Mark Morley].
+
 2012-11-27
 Better handling of files modified by Epanet's Toolkit [thanks for your input, Antonio del Olmo García].
 Workarounds for Java 7 specifics.
