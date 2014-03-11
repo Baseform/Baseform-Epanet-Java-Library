@@ -3,3 +3,5 @@
 lib
 dist
 doc
+.classpath
+.project

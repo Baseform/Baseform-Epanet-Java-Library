@@ -312,7 +312,7 @@ public class QualitySim {
     /**
      * Retrieves hydraulic solution and hydraulic time step for next hydraulic event.
      */
-    private void gethyd(DataOutputStream outStream, HydraulicReader hydSeek) throws ENException, IOException {
+    private void gethyd(DataOutput outStream, HydraulicReader hydSeek) throws ENException, IOException {
         AwareStep step =  hydSeek.getStep((int) Htime);
         loadHydValues(step);
 
@@ -447,7 +447,7 @@ public class QualitySim {
     /**
      * Updates WQ conditions until next hydraulic solution occurs (after tstep secs.)
      */
-    private long nextqual(DataOutputStream outStream) throws ENException, IOException {
+    private long nextqual(DataOutput outStream) throws ENException, IOException {
         long hydstep;
         long tstep;
 
@@ -664,9 +664,8 @@ public class QualitySim {
      * @throws ENException
      */
     public void simulate(File hydFile, File qualFile) throws IOException, ENException {
-        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(qualFile));
-        simulate(hydFile, bos);
-        bos.close();
+    	simulate(new DataInputStream(new BufferedInputStream(new FileInputStream(hydFile))), new DataOutputStream(
+				new BufferedOutputStream(new FileOutputStream(qualFile))));
     }
 
     /**
@@ -677,23 +676,35 @@ public class QualitySim {
      * @throws IOException
      * @throws ENException
      */
-    void simulate(File hydFile, OutputStream out) throws IOException, ENException
+    public void simulate(File hydFile, OutputStream out) throws IOException, ENException
     {
-        DataOutputStream outStream = new DataOutputStream(out);
-        outStream.writeInt(net.getNodes().size());
-        outStream.writeInt(net.getLinks().size());
-        long tstep;
-        HydraulicReader hydraulicReader = new HydraulicReader(new RandomAccessFile(hydFile, "r"));
-        do {
-            if (Qtime == Htime)
-                gethyd(outStream, hydraulicReader);
-
-
-            tstep = nextqual(outStream);
-        } while (tstep > 0);
-
-        hydraulicReader.close();
+    	simulate(new DataInputStream(new BufferedInputStream(new FileInputStream(hydFile))), new DataOutputStream(out));
     }
+    
+    /**
+	 * Run the water quality simulation.
+	 * 
+	 * @param hydInput
+	 *            The hydraulic output file generated previously.
+	 * @param qualOutput
+	 *            The output stream were the water quality simulation results will be written.
+	 * @throws IOException
+	 * @throws ENException
+	 */
+	public void simulate(DataInput hydInput, DataOutput qualOutput) throws IOException, ENException {
+		qualOutput.writeInt(net.getNodes().size());
+		qualOutput.writeInt(net.getLinks().size());
+		long tstep;
+		HydraulicReader hydraulicReader = new HydraulicReader(hydInput);
+		do {
+			if (Qtime == Htime)
+				gethyd(qualOutput, hydraulicReader);
+
+			tstep = nextqual(qualOutput);
+		} while (tstep > 0);
+
+		hydraulicReader.close();
+	}
 
     /**
      * Simulate water quality during one hydraulic step.

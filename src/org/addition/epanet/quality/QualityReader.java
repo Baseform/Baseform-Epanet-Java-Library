@@ -249,16 +249,24 @@ public class QualityReader implements Iterable<QualityReader.Step> {
      */
     @SuppressWarnings({"ResultOfMethodCallIgnored"})
     public void open(File qualFile) throws IOException {
-
-        // Read the last 4 bytes which contain the number of periods
-        inputStream = new DataInputStream(new BufferedInputStream(new FileInputStream(qualFile)));
-        inputStream.skip(qualFile.length() - Integer.SIZE / 8);
-        nPeriods = inputStream.readInt();
-        inputStream.close();
-
-        inputStream = new DataInputStream(new BufferedInputStream(new FileInputStream(qualFile)));
-        nodeCount = inputStream.readInt();
-        linkCount = inputStream.readInt();
-        qStep = new Step(linkCount, nodeCount);
+    	DataInputStream input = new DataInputStream(new BufferedInputStream(new FileInputStream(qualFile)));
+		int length = (int) qualFile.length();
+		open(input, length);
     }
+    
+    /**
+     * @param qualInput Abstract representation of the quality file.
+     */
+    @SuppressWarnings({"ResultOfMethodCallIgnored"})
+    public void open(DataInputStream qualInput, int size) throws IOException {
+		// Read the last 4 bytes which contain the number of periods
+    	inputStream = qualInput;
+		inputStream.skip(size - Integer.SIZE / 8);
+		nPeriods = inputStream.readInt();
+		inputStream.reset();
+
+		nodeCount = inputStream.readInt();
+		linkCount = inputStream.readInt();
+		qStep = new Step(linkCount, nodeCount);
+	}
 }
