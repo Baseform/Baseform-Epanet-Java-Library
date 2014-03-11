@@ -255,12 +255,12 @@ public class QualityReader implements Iterable<QualityReader.Step> {
     }
     
     /**
-     * @param inStream Abstract representation of the quality file.
+     * @param qualInput Abstract representation of the quality file.
      */
     @SuppressWarnings({"ResultOfMethodCallIgnored"})
-    public void open(DataInputStream inStream, int size) throws IOException {
+    public void open(DataInputStream qualInput, int size) throws IOException {
 		// Read the last 4 bytes which contain the number of periods
-		inputStream = inStream;
+    	inputStream = qualInput;
 		inputStream.skip(size - Integer.SIZE / 8);
 		nPeriods = inputStream.readInt();
 		inputStream.reset();
