@@ -686,13 +686,20 @@ public class HydraulicSim {
     }
 
     /**
-     * Finds length of next time step & updates tank levels and rule-based contol actions.
+     * Write the simulation results to current output.
+     */
+    protected void writeSimulationOutput() throws ENException, IOException {
+        if (simulationOutput != null)
+            AwareStep.write(simulationOutput, this, Htime);
+    }
+
+    /**
+     * Finds length of next time step & updates tank levels and rule-based control actions.
      */
     protected long nextHyd() throws ENException, IOException {
         long hydstep = 0;
 
-        if (simulationOutput != null)
-            AwareStep.write(simulationOutput, this, Htime);
+        writeSimulationOutput();
 
         if (Htime < pMap.getDuration())
             hydstep = timeStep();
