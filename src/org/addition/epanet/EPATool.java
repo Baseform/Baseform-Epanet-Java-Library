@@ -138,7 +138,7 @@ public class EPATool {
                     else
                         return link.getRoughness();
                 case FLOW:
-                    return step != null ? Math.abs(step.getLinkFlow(index, link, fmap)) : 0;
+                    return step != null ? step.getLinkFlow(index, link, fmap) : 0;
                 case VELOCITY:
                     return step != null ? Math.abs(step.getLinkVelocity(index, link, fmap)) : 0;
                 case UNITHEADLOSS:

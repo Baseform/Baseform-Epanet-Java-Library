@@ -44,6 +44,9 @@ Baseform Epanet Tool as described on http://www.baseform.org/np4/tools/epanetToo
 RELEASE HISTORY
 ///////
 
+2017-11-14
+Fixed negative values bug on the visual utility EPATool [thanks petacoder75].
+
 2012-11-29
 Added leniency for a few inp sections, loading more files now [thanks for your input & models, Mark Morley].
 
